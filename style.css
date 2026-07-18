@@ -141,3 +141,66 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+/* ========================================== */
+/* DAY 4 - CORE TEAM CARDS                    */
+/* ========================================== */
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.profile-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    text-align: center;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.profile-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.profile-card p {
+    font-size: 16px;
+    color: #666666;
+    margin-bottom: 15px;
+}
+
+.profile-card a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.profile-card a:hover {
+    background-color: #365a9d;
+}
+
+/* ========================================== */
+/* DAY 4 BONUS                                */
+/* ========================================== */
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
