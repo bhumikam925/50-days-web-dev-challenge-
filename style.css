@@ -204,3 +204,44 @@ footer a:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.25);
 }
+/* ========================================== */
+/* DAY 5 - INITIATIVES GRID                   */
+/* ========================================== */
+
+.initiatives-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.initiative-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+}
+
+.initiative-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.initiative-card p {
+    color: #666666;
+    font-size: 16px;
+}
+
+/* ========================================== */
+/* DAY 5 BONUS                                */
+/* ========================================== */
+
+.featured {
+    grid-column: span 2;
+}
+
+.initiative-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
