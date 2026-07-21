@@ -287,3 +287,85 @@ footer a:hover {
 h1 {
     font-size: clamp(32px, 8vw, 46px);
 }
+/* ============================= */
+/* CONTACT SECTION */
+/* ============================= */
+
+#contact {
+    max-width: 700px;
+    margin: 60px auto;
+}
+
+#contact h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Labels */
+
+label {
+    font-weight: bold;
+}
+
+/* Inputs & Textarea */
+
+input,
+textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Focus State */
+
+input:focus,
+textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(75,108,183,0.4);
+}
+
+/* Submit Button */
+
+button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover */
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Disabled */
+
+button:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
+
+/* Bonus Challenge */
+
+input:valid {
+    border-color: green;
+}
+
+input:invalid {
+    border-color: red;
+}
