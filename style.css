@@ -54,7 +54,7 @@ nav a {
     color: var(--text-color);
     font-size: 18px;
     font-weight: 600;
-    transition: 0.3s;
+    transition: color 0.3s ease;
 }
 
 nav a:hover {
@@ -95,7 +95,7 @@ section:first-of-type a {
     padding: 12px 25px;
     border-radius: 8px;
     font-weight: bold;
-    transition: 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 section:first-of-type a:hover {
@@ -160,7 +160,7 @@ footer a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     text-align: center;
     overflow: hidden;
-    transition: 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-card img {
@@ -323,7 +323,7 @@ textarea {
     font-size: 16px;
     background: white;
     outline: none;
-    transition: 0.3s;
+    transition: border-color 0.3s ease;
 }
 
 /* Focus State */
@@ -344,15 +344,15 @@ button {
     border-radius: 8px;
     font-size: 17px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 /* Hover */
 
 button:hover {
-    opacity: 0.9;
+background-color: #365a9d;
+transform: translateY(-2px);
 }
-
 /* Disabled */
 
 button:disabled {
