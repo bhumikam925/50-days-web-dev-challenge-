@@ -40,7 +40,6 @@ nav h2 {
 }
 
 /* Navigation Menu */
-
 nav ul {
     display: flex;
     gap: 25px;
@@ -74,8 +73,6 @@ section:first-of-type {
     text-align: center;
 }
 
-/* BONUS - FLUID TYPOGRAPHY */
-
 h1 {
     font-size: clamp(32px, 8vw, 46px);
 }
@@ -85,7 +82,7 @@ section:first-of-type p {
     margin-bottom: 25px;
 }
 
-/* Join Button */
+/* Hero Button */
 
 section:first-of-type a {
     background-color: var(--primary-color);
