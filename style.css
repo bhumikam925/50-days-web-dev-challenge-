@@ -395,3 +395,6 @@ textarea:focus-visible {
     outline: 3px solid orange;
     outline-offset: 3px;
 }
+.active-state {
+    color: var(--primary-color);
+}
