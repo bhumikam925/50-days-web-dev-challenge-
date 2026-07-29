@@ -42,3 +42,34 @@ contactForm.addEventListener("submit", function(e){
     }
 
 });
+const projectsData = [
+    {
+        title: "Technical Workshop",
+        description: "Hands-on workshops to improve programming and development skills.",
+        status: "Active"
+    },
+    {
+        title: "Hackathons",
+        description: "Collaborate with students and build innovative solutions.",
+        status: "Completed"
+    },
+    {
+        title: "Open Source Projects",
+        description: "Contribute to open-source and build your portfolio.",
+        status: "Active"
+    }
+];
+
+const dynamicGrid = document.getElementById("dynamic-grid");
+
+projectsData.forEach(function(project){
+
+    dynamicGrid.innerHTML += `
+        <div class="initiative-card">
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <p><strong>Status:</strong> ${project.status}</p>
+        </div>
+    `;
+
+});
