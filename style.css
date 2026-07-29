@@ -415,3 +415,10 @@ textarea:focus-visible {
 .active-state {
     color: var(--primary-color);
 }
+.active-project{
+    border:2px solid green;
+}
+
+.completed-project{
+    border:2px solid gray;
+}
