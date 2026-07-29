@@ -60,20 +60,39 @@ const projectsData = [
     }
 ];
 
-const dynamicGrid = document.getElementById("dynamic-grid");
+const gridContainer = document.getElementById("dynamic-grid");
+const searchInput = document.getElementById("search-projects");
 
-projectsData.forEach(function(project){
+function renderProjects(dataArray){
 
-    dynamicGrid.innerHTML += `
-       <div class="initiative-card ${
-    project.status === "Active"
-        ? "active-project"
-        : "completed-project"
-}">
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <p><strong>Status:</strong> ${project.status}</p>
-        </div>
-    `;
+    gridContainer.innerHTML = "";
+
+    dataArray.forEach(function(project){
+
+        gridContainer.innerHTML += `
+            <div class="initiative-card">
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+                <p><strong>Status:</strong> ${project.status}</p>
+            </div>
+        `;
+
+    });
+
+}
+
+renderProjects(projectsData);
+
+searchInput.addEventListener("input", function(){
+
+    const searchTerm = searchInput.value.toLowerCase();
+
+    const filteredProjects = projectsData.filter(function(project){
+
+        return project.title.toLowerCase().includes(searchTerm);
+
+    });
+
+    renderProjects(filteredProjects);
 
 });
