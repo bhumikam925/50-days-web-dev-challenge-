@@ -31,15 +31,17 @@ contactForm.addEventListener("submit", function(e){
 
     }
 
-    else{
+   else{
 
-        console.log("Application Ready for Server");
+    console.log("Application Ready for Server");
 
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("message").value = "";
+    localStorage.removeItem("synexus_form_draft");
 
-    }
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("message").value = "";
+
+}
 
 });
 const projectsData = [
@@ -92,6 +94,41 @@ searchInput.addEventListener("input", function(){
         return project.title.toLowerCase().includes(searchTerm);
 
     });
+    const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+
+// Load saved draft
+const savedData = localStorage.getItem("synexus_form_draft");
+
+if(savedData){
+
+    const formData = JSON.parse(savedData);
+
+    nameInput.value = formData.name;
+    emailInput.value = formData.email;
+
+}
+
+// Save while typing
+function saveDraft(){
+
+    const formData = {
+
+        name: nameInput.value,
+        email: emailInput.value
+
+    };
+
+    localStorage.setItem(
+        "synexus_form_draft",
+        JSON.stringify(formData)
+    );
+
+}
+
+nameInput.addEventListener("input", saveDraft);
+
+emailInput.addEventListener("input", saveDraft);
 
     renderProjects(filteredProjects);
 
