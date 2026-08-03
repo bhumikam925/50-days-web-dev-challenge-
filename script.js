@@ -162,7 +162,7 @@ themeButton.addEventListener("click", function(){
 const testimonialsData = [
 
     {
-        name: "Rahul",
+        name: "Bhumika",
         quote: "Synexus helped me improve my web development skills."
     },
 
