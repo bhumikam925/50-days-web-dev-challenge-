@@ -159,3 +159,48 @@ themeButton.addEventListener("click", function(){
     }
 
 });
+const testimonialsData = [
+
+    {
+        name: "Rahul",
+        quote: "Synexus helped me improve my web development skills."
+    },
+
+    {
+        name: "Priya",
+        quote: "The community projects gave me real-world experience."
+    },
+
+    {
+        name: "Ananya",
+        quote: "I learned teamwork and gained confidence in coding."
+    }
+
+];
+
+let currentIndex = 0;
+
+const memberName = document.getElementById("member-name");
+const memberQuote = document.getElementById("member-quote");
+
+function updateTestimonial(){
+
+    const currentData = testimonialsData[currentIndex];
+
+    memberName.textContent = currentData.name;
+    memberQuote.textContent = currentData.quote;
+
+    currentIndex++;
+
+    if(currentIndex === testimonialsData.length){
+
+        currentIndex = 0;
+
+    }
+
+}
+
+updateTestimonial();
+
+setInterval(updateTestimonial,3000);
+
