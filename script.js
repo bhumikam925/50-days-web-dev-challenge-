@@ -1,3 +1,10 @@
+const savedTheme = localStorage.getItem("synexus_theme");
+
+if(savedTheme === "dark"){
+
+    document.body.classList.add("dark-theme");
+
+}
 const heroTitle = document.querySelector("#hero-title");
 const heroButton = document.querySelector("#hero-btn");
 
@@ -131,5 +138,24 @@ nameInput.addEventListener("input", saveDraft);
 emailInput.addEventListener("input", saveDraft);
 
     renderProjects(filteredProjects);
+
+});
+const themeButton = document.getElementById("theme-toggle");
+
+themeButton.addEventListener("click", function(){
+
+    document.body.classList.toggle("dark-theme");
+
+    if(document.body.classList.contains("dark-theme")){
+
+        localStorage.setItem("synexus_theme","dark");
+
+    }
+
+    else{
+
+        localStorage.setItem("synexus_theme","light");
+
+    }
 
 });
