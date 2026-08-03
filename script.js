@@ -79,12 +79,23 @@ function renderProjects(dataArray){
     dataArray.forEach(function(project){
 
         gridContainer.innerHTML += `
-            <div class="initiative-card">
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-                <p><strong>Status:</strong> ${project.status}</p>
-            </div>
-        `;
+
+<div class="initiative-card">
+
+<h3>${project.title}</h3>
+
+<p>${project.description}</p>
+
+<p><strong>Status:</strong> ${project.status}</p>
+
+<button class="view-btn"
+data-title="${project.title}">
+View Details
+</button>
+
+</div>
+
+`;
 
     });
 
@@ -203,4 +214,29 @@ function updateTestimonial(){
 updateTestimonial();
 
 setInterval(updateTestimonial,3000);
+const modal = document.getElementById("modal");
+
+const modalTitle = document.getElementById("modal-title");
+
+const closeModal = document.getElementById("close-modal");
+
+gridContainer.addEventListener("click",function(e){
+
+    if(e.target.classList.contains("view-btn")){
+
+        const title = e.target.getAttribute("data-title");
+
+        modalTitle.textContent = title;
+
+        modal.style.display="flex";
+
+    }
+
+});
+
+closeModal.addEventListener("click",function(){
+
+    modal.style.display="none";
+
+});
 
