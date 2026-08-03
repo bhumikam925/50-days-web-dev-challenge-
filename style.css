@@ -5,16 +5,17 @@
 }
 
 /* CSS Variables */
-:root {
-    --primary-color: #4b6cb7;
-    --text-color: #333333;
+:root{
+    --primary-color:#4b6cb7;
+    --text-color:#333333;
+    --bg-color:#f4f7fb;
 }
 
 /* Body Styling */
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--text-color);
-    background-color: #f4f7fb;
+    background-color:var(--bg-color);
     line-height: 1.6;
     padding: 0 40px;
 }
@@ -429,4 +430,18 @@ textarea:focus-visible {
 
 .completed-project{
     border:2px solid gray;
+}
+.dark-theme{
+
+    --bg-color:#121212;
+    --text-color:#f1f1f1;
+
+}
+#theme-toggle{
+
+    background:none;
+    border:none;
+    font-size:24px;
+    cursor:pointer;
+
 }
