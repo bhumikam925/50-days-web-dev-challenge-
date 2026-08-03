@@ -239,4 +239,80 @@ closeModal.addEventListener("click",function(){
     modal.style.display="none";
 
 });
+let taskState = [];
+
+const taskInput = document.getElementById("task-input");
+
+const addTaskBtn = document.getElementById("add-task-btn");
+
+const taskList = document.getElementById("task-list");
+function renderTasks(){
+
+    taskList.innerHTML = "";
+
+    taskState.forEach(function(task){
+
+        taskList.innerHTML += `
+
+        <li>
+
+            <span>${task.text}</span>
+
+            <button
+            class="delete-btn"
+            data-id="${task.id}">
+            ×
+            </button>
+
+        </li>
+
+        `;
+
+    });
+
+}
+addTaskBtn.addEventListener("click",function(){
+
+    const value = taskInput.value.trim();
+
+    if(value===""){
+
+        return;
+
+    }
+
+    taskState.push({
+
+        id:Date.now(),
+
+        text:value,
+
+        completed:false
+
+    });
+
+    taskInput.value="";
+
+    renderTasks();
+
+});
+taskList.addEventListener("click",function(e){
+
+    if(e.target.classList.contains("delete-btn")){
+
+        const targetId = Number(
+            e.target.getAttribute("data-id")
+        );
+
+        taskState = taskState.filter(function(task){
+
+            return task.id !== targetId;
+
+        });
+
+        renderTasks();
+
+    }
+
+});
 
