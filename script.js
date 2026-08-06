@@ -102,8 +102,25 @@ View Details
 }
 
 renderProjects(projectsData);
+function debounce(func, delay){
 
-searchInput.addEventListener("input", function(){
+    let timeout;
+
+    return function(...args){
+
+        clearTimeout(timeout);
+
+        timeout = setTimeout(() => {
+
+            func.apply(this, args);
+
+        }, delay);
+
+    };
+
+}
+
+const debouncedSearch = debounce(function(){
 
     const searchTerm = searchInput.value.toLowerCase();
 
@@ -112,6 +129,12 @@ searchInput.addEventListener("input", function(){
         return project.title.toLowerCase().includes(searchTerm);
 
     });
+
+    renderProjects(filteredProjects);
+
+}, 300);
+
+searchInput.addEventListener("input", debouncedSearch);
     const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 
