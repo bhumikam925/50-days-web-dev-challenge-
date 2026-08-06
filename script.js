@@ -359,4 +359,30 @@ hiddenElements.forEach(function(element){
     observer.observe(element);
 
 });
+const taskCards = document.querySelectorAll(".task-card");
+const columns = document.querySelectorAll(".column");
+taskCards.forEach(card => {
+
+    card.addEventListener("dragstart", () => {
+        card.classList.add("is-dragging");
+    });
+
+    card.addEventListener("dragend", () => {
+        card.classList.remove("is-dragging");
+    });
+
+});
+columns.forEach(column => {
+
+    column.addEventListener("dragover", (e) => {
+
+        e.preventDefault();
+
+        const draggingCard = document.querySelector(".is-dragging");
+
+        column.appendChild(draggingCard);
+
+    });
+
+});
 
