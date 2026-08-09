@@ -15,30 +15,36 @@ heroButton.addEventListener("click", function (event) {
 
     heroTitle.classList.toggle("active-state");
 });
+const menuToggle = document.querySelector(".menu-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", function () {
+    navLinks.classList.toggle("nav-active");
+});
 const contactForm = document.querySelector("#contact-form");
 
-contactForm.addEventListener("submit", function(e){
+contactForm.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
     const nameValue = document.getElementById("name").value.trim();
     const emailValue = document.getElementById("email").value.trim();
 
-    if(nameValue === ""){
+    if (nameValue === "") {
 
         document.getElementById("name").style.borderColor = "red";
         alert("Please enter your name.");
 
     }
 
-    else if(!emailValue.includes("@")){
+    else if (!emailValue.includes("@")) {
 
         document.getElementById("email").style.borderColor = "red";
         alert("Please enter a valid email.");
 
     }
 
-   else{
+    else{
 
     console.log("Application Ready for Server");
 
@@ -80,7 +86,7 @@ function renderProjects(dataArray){
 
         gridContainer.innerHTML += `
 
-<div class="initiative-card">
+<div class="initiative-card hidden">
 
 <h3>${project.title}</h3>
 
@@ -135,13 +141,15 @@ const debouncedSearch = debounce(function(){
 }, 300);
 
 searchInput.addEventListener("input", debouncedSearch);
-    const nameInput = document.getElementById("name");
+
+searchInput.addEventListener("input", debouncedSearch);
+const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 
 // Load saved draft
 const savedData = localStorage.getItem("synexus_form_draft");
 
-if(savedData){
+if (savedData) {
 
     const formData = JSON.parse(savedData);
 
@@ -150,8 +158,8 @@ if(savedData){
 
 }
 
-// Save while typing
-function saveDraft(){
+// Save draft automatically
+function saveDraft() {
 
     const formData = {
 
@@ -168,12 +176,7 @@ function saveDraft(){
 }
 
 nameInput.addEventListener("input", saveDraft);
-
 emailInput.addEventListener("input", saveDraft);
-
-    renderProjects(filteredProjects);
-
-});
 const themeButton = document.getElementById("theme-toggle");
 
 themeButton.addEventListener("click", function(){
@@ -385,4 +388,3 @@ columns.forEach(column => {
     });
 
 });
-
