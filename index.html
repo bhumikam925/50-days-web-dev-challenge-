@@ -7,12 +7,13 @@
 
     <!-- Title -->
     <title>Synexus</title>
- <link rel="stylesheet" href="style.css">
- <script src="script.js"></script>   
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <header>
         <nav>
             <h2>Synexus</h2>
@@ -28,9 +29,10 @@
         </nav>
     </header>
 
-   <main id="main-content">
+    <main id="main-content">
+
         <section>
-           <h1 id="hero-title">Empowering the Next Generation of Engineers</h1>
+            <h1 id="hero-title">Empowering the Next Generation of Engineers</h1>
 
             <p>
                 Join our community to learn, collaborate, and build innovative
@@ -42,10 +44,10 @@
                 confident engineers and lifelong learners.
             </p>
 
-           <a href="#" id="hero-btn">Join Our Community</a>
+            <a href="#" id="hero-btn">Join Our Community</a>
         </section>
 
-        <section class="hidden">
+       <section class="hidden">
             <h2>About Us</h2>
 
             <p>
@@ -60,24 +62,23 @@
             </p>
         </section>
 
-       <section>
+        <section>
     <h2>Our Initiatives</h2>
-           <input
-                type="text"
-                id="search-projects"
-                placeholder="Search initiatives..."
+    <input
+    type="text"
+    id="search-projects"
+    placeholder="Search initiatives..."
 >
 
     <div class="initiatives-grid" id="dynamic-grid">
 
     </div>
 </section>
-       <section>
     <h2>Core Team</h2>
 
     <div class="team-grid">
 
-       <div class="profile-card hidden">
+        <div class="profile-card hidden">
             <img src="https://via.placeholder.com/150" alt="Founder Profile">
 
             <h3>Anant Sharma</h3>
@@ -88,6 +89,19 @@
         </div>
 
     </div>
+</section>
+    </main>
+    <section id="testimonials" class="hidden"></section>
+    <h2>Community Testimonials</h2>
+
+    <div id="testimonial-container">
+
+        <h3 id="member-name"></h3>
+
+        <p id="member-quote"></p>
+
+    </div>
+
 </section>
 <section>
     <h2>Task Board</h2>
@@ -121,21 +135,7 @@
 
     </div>
 </section>
-    </main>
-   <section id="testimonials" class="hidden">
-
-    <h2>Community Testimonials</h2>
-
-    <div id="testimonial-container">
-
-        <h3 id="member-name"></h3>
-
-        <p id="member-quote"></p>
-
-    </div>
-
-</section>
-    <section id="task-tracker">
+<section id="task-tracker">
 
     <h2>Task Tracker</h2>
 
@@ -161,7 +161,7 @@
         
 
     </footer>
-<section id="contact" class="hidden">
+   <section id="contact" class="hidden">
     <h2>Contact Us</h2>
 
     <form id="contact-form">
@@ -177,7 +177,6 @@
         <button type="submit">Send Message</button>
     </form>
 </section>
-
 </body>
 
 </html>
