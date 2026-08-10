@@ -388,3 +388,49 @@ columns.forEach(column => {
     });
 
 });
+// ===== DAY 24 ROUTER =====
+
+const appRoot = document.getElementById("app-root");
+
+const routes = {
+    "/": `
+        <section>
+            <h1>Empowering the Next Generation of Engineers</h1>
+            <p>
+                Welcome to the Synexus community.
+                Learn, collaborate, and build innovative projects together.
+            </p>
+        </section>
+    `,
+
+    "/about": `
+        <section>
+            <h2>About Us</h2>
+            <p>
+                Our community is dedicated to empowering students
+                through learning, collaboration, and technology.
+            </p>
+        </section>
+    `,
+
+    "/team": `
+        <section>
+            <h2>Core Team</h2>
+            <p>Meet the people behind Synexus.</p>
+        </section>
+    `
+};
+async function router() {
+
+    const path = window.location.pathname;
+
+    const view = routes[path] || `
+        <section class="not-found">
+            <h2>404 - Page Not Found</h2>
+            <p>Sorry, the page you are looking for does not exist.</p>
+            <a href="/" class="nav-link">Go Home</a>
+        </section>
+    `;
+
+    appRoot.innerHTML = view;
+}
