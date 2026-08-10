@@ -420,21 +420,11 @@ const routes = {
         </section>
     `
 };
-function router() {
+async function router() {
 
     const path = window.location.pathname;
 
-    let currentPath = path;
-
-    // GitHub Pages repository path
-    if (currentPath.includes("50-days-web-dev-challenge")) {
-        currentPath = currentPath.replace(
-            "/50-days-web-dev-challenge",
-            ""
-        );
-    }
-
-    const view = routes[currentPath] || `
+    const view = routes[path] || `
         <section class="not-found">
             <h2>404 - Page Not Found</h2>
             <p>Sorry, the page you are looking for does not exist.</p>
@@ -444,5 +434,3 @@ function router() {
 
     appRoot.innerHTML = view;
 }
-
-router();
