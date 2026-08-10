@@ -636,3 +636,9 @@ textarea:focus-visible {
 .is-dragging{
     opacity:0.5;
 }
+/* ===== DAY 24 ROUTER ===== */
+
+#app-root {
+    min-height: 400px;
+    padding: 40px 0;
+}
