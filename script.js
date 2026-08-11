@@ -413,6 +413,16 @@ const routes = {
         </section>
     `,
 
+    "/initiatives": `
+        <section>
+            <h2>Our Initiatives</h2>
+            <p>
+                Explore workshops, hackathons, and open-source projects
+                organized by the Synexus community.
+            </p>
+        </section>
+    `,
+
     "/team": `
         <section>
             <h2>Core Team</h2>
@@ -420,6 +430,7 @@ const routes = {
         </section>
     `
 };
+
 async function router() {
 
     const path = window.location.pathname;
@@ -427,10 +438,33 @@ async function router() {
     const view = routes[path] || `
         <section class="not-found">
             <h2>404 - Page Not Found</h2>
-            <p>Sorry, the page you are looking for does not exist.</p>
+            <p>
+                Sorry, the page you are looking for does not exist.
+            </p>
             <a href="/" class="nav-link">Go Home</a>
         </section>
     `;
 
     appRoot.innerHTML = view;
 }
+
+document.addEventListener("click", function (event) {
+
+    const link = event.target.closest("a.nav-link");
+
+    if (!link) {
+        return;
+    }
+
+    event.preventDefault();
+
+    const href = link.getAttribute("href");
+
+    window.history.pushState({}, "", href);
+
+    router();
+});
+
+window.addEventListener("popstate", router);
+
+router();
