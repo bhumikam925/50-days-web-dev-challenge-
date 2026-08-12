@@ -393,43 +393,165 @@ columns.forEach(column => {
 const appRoot = document.getElementById("app-root");
 
 const routes = {
-    "/": `
-        <section>
-            <h1>Empowering the Next Generation of Engineers</h1>
-            <p>
-                Welcome to the Synexus community.
-                Learn, collaborate, and build innovative projects together.
-            </p>
-        </section>
-    `,
+   "/": `
+    <section>
+        <h1>Empowering the Next Generation of Engineers</h1>
 
-    "/about": `
-        <section>
-            <h2>About Us</h2>
-            <p>
-                Our community is dedicated to empowering students
-                through learning, collaboration, and technology.
-            </p>
-        </section>
-    `,
+        <p>
+            Welcome to Synexus, a student-driven engineering community
+            focused on learning, collaboration, innovation, and practical
+            experience. We bring together students who are passionate about
+            technology and provide opportunities to explore new ideas,
+            strengthen technical skills, and work on meaningful projects.
+        </p>
 
-    "/initiatives": `
-        <section>
-            <h2>Our Initiatives</h2>
-            <p>
-                Explore workshops, hackathons, and open-source projects
-                organized by the Synexus community.
-            </p>
-        </section>
-    `,
+        <p>
+            At Synexus, we believe that learning becomes more powerful when
+            students learn together. Through workshops, coding sessions,
+            hackathons, project collaborations, and knowledge-sharing
+            activities, members can gain practical experience while building
+            confidence and teamwork skills.
+        </p>
 
-    "/team": `
-        <section>
-            <h2>Core Team</h2>
-            <p>Meet the people behind Synexus.</p>
-        </section>
-    `
-};
+        <h2>Why Join Synexus?</h2>
+
+        <p>
+            Be part of a supportive community where you can learn from others,
+            share your ideas, participate in technical activities, and turn
+            your ideas into real projects. Whether you are a beginner or
+            already have technical experience, Synexus gives you a place to
+            learn, create, and grow together.
+        </p>
+
+        <a href="/about" class="nav-link">Learn More About Us</a>
+    </section>
+`,
+
+   "/about": `
+    <section>
+        <h2>About Synexus</h2>
+
+        <p>
+            Synexus is a student community created to encourage young
+            engineers to learn, collaborate, and explore the world of
+            technology. Our goal is to create an environment where students
+            can share knowledge, develop technical skills, and gain practical
+            experience through hands-on activities.
+        </p>
+
+        <p>
+            We organize technical workshops, coding sessions, project
+            collaborations, hackathons, and other learning activities.
+            These experiences help students improve their problem-solving
+            abilities, teamwork, creativity, and confidence.
+        </p>
+
+        <h2>Our Mission</h2>
+
+        <p>
+            Our mission is to empower students with the knowledge,
+            opportunities, and community support they need to become
+            confident engineers and lifelong learners.
+        </p>
+
+        <h2>What We Believe</h2>
+
+        <p>
+            We believe that every student has the ability to learn and
+            innovate. By working together and sharing ideas, we can create
+            better solutions and help each other grow.
+        </p>
+    </section>
+`,
+
+   <div class="section-header">
+    <h2>Our Initiatives</h2>
+    <p>
+        At Synexus, we believe in turning ideas into meaningful action.
+        Our initiatives provide students with opportunities to learn, collaborate,
+        innovate, and build solutions that create a positive impact.
+    </p>
+</div>
+
+<div class="initiatives-grid">
+
+    <div class="initiative-card">
+        <h3>Technical Workshops</h3>
+        <p>
+            Hands-on workshops designed to help students strengthen their
+            technical knowledge and gain practical experience in emerging
+            technologies.
+        </p>
+    </div>
+
+    <div class="initiative-card">
+        <h3>Hackathons</h3>
+        <p>
+            Collaborative events where students can transform creative ideas
+            into working solutions while developing problem-solving and
+            teamwork skills.
+        </p>
+    </div>
+
+    <div class="initiative-card">
+        <h3>Community Projects</h3>
+        <p>
+            Projects that encourage members to work together on meaningful
+            ideas and contribute their technical skills toward real-world
+            challenges.
+        </p>
+    </div>
+
+    <div class="initiative-card">
+        <h3>Knowledge Sharing</h3>
+        <p>
+            Interactive sessions and discussions where members share their
+            knowledge, experiences, resources, and useful insights with the
+            community.
+        </p>
+    </div>
+
+</div>
+
+   "/team": `
+    <section>
+        <h2>Core Team</h2>
+
+        <p>
+            Meet the dedicated students who help organize and support the
+            Synexus community. Our core team works together to plan events,
+            coordinate projects, encourage participation, and create
+            opportunities for members to learn and grow.
+        </p>
+
+        <p>
+            Every member contributes their ideas, skills, and creativity to
+            make Synexus an active and supportive engineering community.
+        </p>
+
+        <div class="team-grid">
+
+            <div class="profile-card">
+                <h3>Anant Sharma</h3>
+                <p>Founder</p>
+                <p>
+                    Passionate about building a collaborative environment
+                    where students can learn technology and work together
+                    on innovative ideas.
+                </p>
+            </div>
+
+        </div>
+
+        <h2>Our Team's Goal</h2>
+
+        <p>
+            We aim to build a community where students feel comfortable
+            asking questions, sharing ideas, taking part in projects, and
+            developing skills that will help them in their future careers.
+        </p>
+    </section>
+`,
 
 async function router() {
 
