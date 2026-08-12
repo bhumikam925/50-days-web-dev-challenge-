@@ -464,55 +464,7 @@ const routes = {
     </section>
 `,
 
-   <div class="section-header">
-    <h2>Our Initiatives</h2>
-    <p>
-        At Synexus, we believe in turning ideas into meaningful action.
-        Our initiatives provide students with opportunities to learn, collaborate,
-        innovate, and build solutions that create a positive impact.
-    </p>
-</div>
-
-<div class="initiatives-grid">
-
-    <div class="initiative-card">
-        <h3>Technical Workshops</h3>
-        <p>
-            Hands-on workshops designed to help students strengthen their
-            technical knowledge and gain practical experience in emerging
-            technologies.
-        </p>
-    </div>
-
-    <div class="initiative-card">
-        <h3>Hackathons</h3>
-        <p>
-            Collaborative events where students can transform creative ideas
-            into working solutions while developing problem-solving and
-            teamwork skills.
-        </p>
-    </div>
-
-    <div class="initiative-card">
-        <h3>Community Projects</h3>
-        <p>
-            Projects that encourage members to work together on meaningful
-            ideas and contribute their technical skills toward real-world
-            challenges.
-        </p>
-    </div>
-
-    <div class="initiative-card">
-        <h3>Knowledge Sharing</h3>
-        <p>
-            Interactive sessions and discussions where members share their
-            knowledge, experiences, resources, and useful insights with the
-            community.
-        </p>
-    </div>
-
-</div>
-
+   
    "/team": `
     <section>
         <h2>Core Team</h2>
@@ -528,7 +480,42 @@ const routes = {
             Every member contributes their ideas, skills, and creativity to
             make Synexus an active and supportive engineering community.
         </p>
+"/initiatives": `
+    <section>
 
+        <h2>Our Initiatives</h2>
+
+        <p>
+            Synexus organizes a variety of technical initiatives designed
+            to help students learn, experiment, collaborate, and gain
+            practical experience. These activities give members an
+            opportunity to apply their knowledge beyond the classroom
+            and work together on real-world ideas.
+        </p>
+
+        <p>
+            From hands-on technical workshops and coding events to
+            hackathons and open-source projects, our initiatives encourage
+            creativity, problem-solving, teamwork, and continuous learning.
+            Every activity is designed to help students improve their skills
+            while building meaningful projects with the community.
+        </p>
+
+        <h2>Explore Our Initiatives</h2>
+
+        <input
+            type="text"
+            id="search-projects"
+            placeholder="Search initiatives..."
+        >
+
+        <div
+            class="initiatives-grid"
+            id="dynamic-grid">
+        </div>
+
+    </section>
+`,
         <div class="team-grid">
 
             <div class="profile-card">
