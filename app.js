@@ -866,6 +866,7 @@ const routes = {
             </p>
 
         </section>
+          `,
 
     `
    "/github": `
@@ -949,81 +950,7 @@ async function router() {
             </section>
 
         `;
-    async function getDeveloperProfile(username) {
-
-    const profileCard =
-        document.getElementById("dev-profile-card");
-
-    if (!profileCard) return;
-
-    profileCard.innerHTML =
-        "<p>Fetching GitHub profile...</p>";
-
-    try {
-
-        const response =
-            await fetch(
-                `https://api.github.com/users/${username}`
-            );
-
-        if (!response.ok) {
-            throw new Error("User not found");
-        }
-
-        const data =
-            await response.json();
-
-        profileCard.innerHTML = `
-
-            <div class="github-profile-card">
-
-                <img
-                    src="${data.avatar_url}"
-                    alt="GitHub profile">
-
-                <h3>
-                    ${data.name || username}
-                </h3>
-
-                <p>
-                    ${data.bio || "No bio available."}
-                </p>
-
-            </div>
-
-        `;
-
-    } catch (error) {
-
-        profileCard.innerHTML = `
-            <p>
-                ❌ GitHub user not found.
-            </p>
-        `;
-
-    }
-}
-    function initGithubLookup() {
-
-    const usernameInput =
-        document.getElementById("github-username");
-
-    const searchButton =
-        document.getElementById("search-dev-btn");
-
-    if (!usernameInput || !searchButton) return;
-
-    searchButton.addEventListener("click", function () {
-
-        const username =
-            usernameInput.value.trim();
-
-        if (username === "") {
-
-            alert("Please enter a GitHub username.");
-
-            return;
-        }
+   
 
         getDeveloperProfile(username);
 
