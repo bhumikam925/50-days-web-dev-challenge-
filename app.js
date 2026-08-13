@@ -868,6 +868,30 @@ const routes = {
         </section>
 
     `
+    "/github": `
+    <section id="github-lookup">
+
+        <h2>GitHub Developer Lookup</h2>
+
+        <p>
+            Search for a GitHub developer and view
+            their public profile information.
+        </p>
+
+        <input
+            type="text"
+            id="github-username"
+            placeholder="Enter GitHub username"
+        >
+
+        <button id="search-dev-btn">
+            Lookup
+        </button>
+
+        <div id="dev-profile-card"></div>
+
+    </section>
+`,
 
 };
 
@@ -962,6 +986,9 @@ async function router() {
         initScrollObserver();
 
     }
+    if (path === "/github") {
+    initGithubLookup();
+}
 
 }
 
@@ -1041,3 +1068,81 @@ document.addEventListener(
     "DOMContentLoaded",
     initApp
 );
+async function getDeveloperProfile(username) {
+
+    const profileCard =
+        document.getElementById("dev-profile-card");
+
+    if (!profileCard) return;
+
+    profileCard.innerHTML = "Fetching data...";
+
+    try {
+
+        const response =
+            await fetch(
+                `https://api.github.com/users/${username}`
+            );
+
+        if (!response.ok) {
+            throw new Error("GitHub user not found");
+        }
+
+        const data =
+            await response.json();
+
+        profileCard.innerHTML = `
+
+            <div class="github-profile">
+
+                <img
+                    src="${data.avatar_url}"
+                    alt="GitHub profile">
+
+                <h3>
+                    ${data.name || username}
+                </h3>
+
+                <p>
+                    ${data.bio || "No bio available."}
+                </p>
+
+            </div>
+
+        `;
+
+    } catch (error) {
+
+        profileCard.innerHTML = `
+            <p>
+                Unable to find this GitHub user.
+            </p>
+        `;
+
+    }
+
+}
+function initGithubLookup() {
+
+    const usernameInput =
+        document.getElementById("github-username");
+
+    const searchButton =
+        document.getElementById("search-dev-btn");
+
+    if (!usernameInput || !searchButton) return;
+
+    searchButton.addEventListener("click", function () {
+
+        const username =
+            usernameInput.value.trim();
+
+        if (username === "") {
+            return;
+        }
+
+        getDeveloperProfile(username);
+
+    });
+
+}
