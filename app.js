@@ -1,11 +1,12 @@
-// ===============================
-// SYNEXUS APP.JS - DAY 28
-// ===============================
+// ======================================================
+// SYNEXUS APP.JS
+// DAY 28
+// ======================================================
 
 
-// ===============================
+// ======================================================
 // DEBOUNCE - DAY 28
-// ===============================
+// ======================================================
 
 function debounce(func, delay) {
 
@@ -26,9 +27,14 @@ function debounce(func, delay) {
 }
 
 
-// ===============================
+// ======================================================
 // GLOBAL FEATURES
-// ===============================
+// ======================================================
+
+
+// -------------------------------
+// DARK MODE
+// -------------------------------
 
 function initThemeToggle() {
 
@@ -46,6 +52,7 @@ function initThemeToggle() {
 
     }
 
+
     themeButton.addEventListener(
         "click",
         function () {
@@ -53,6 +60,7 @@ function initThemeToggle() {
             document.body.classList.toggle(
                 "dark-theme"
             );
+
 
             if (
                 document.body.classList.contains(
@@ -80,9 +88,9 @@ function initThemeToggle() {
 }
 
 
-// ===============================
+// ======================================================
 // MOBILE MENU
-// ===============================
+// ======================================================
 
 function initMobileMenu() {
 
@@ -92,7 +100,9 @@ function initMobileMenu() {
     const navLinks =
         document.querySelector(".nav-links");
 
+
     if (!menuToggle || !navLinks) return;
+
 
     menuToggle.addEventListener(
         "click",
@@ -105,28 +115,50 @@ function initMobileMenu() {
         }
     );
 
+
+    // Close mobile menu after clicking a link
+
+    navLinks.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target.classList.contains(
+                    "nav-link"
+                )
+            ) {
+
+                navLinks.classList.remove(
+                    "nav-active"
+                );
+
+            }
+
+        }
+    );
+
 }
 
 
-// ===============================
+// ======================================================
 // HERO BUTTON
-// ===============================
+// ======================================================
 
 function initHeroButton() {
 
     const heroTitle =
-        document.querySelector("#hero-title");
+        document.getElementById("hero-title");
 
     const heroButton =
-        document.querySelector("#hero-btn");
+        document.getElementById("hero-btn");
+
 
     if (!heroTitle || !heroButton) return;
 
+
     heroButton.addEventListener(
         "click",
-        function (event) {
-
-            event.preventDefault();
+        function () {
 
             heroTitle.textContent =
                 "Welcome to the Synexus Core!";
@@ -141,22 +173,25 @@ function initHeroButton() {
 }
 
 
-// ===============================
+// ======================================================
 // CONTACT FORM
-// ===============================
+// ======================================================
 
 function initContactForm() {
 
     const contactForm =
-        document.querySelector("#contact-form");
+        document.getElementById("contact-form");
+
 
     if (!contactForm) return;
+
 
     contactForm.addEventListener(
         "submit",
         function (e) {
 
             e.preventDefault();
+
 
             const nameInput =
                 document.getElementById("name");
@@ -167,11 +202,13 @@ function initContactForm() {
             const messageInput =
                 document.getElementById("message");
 
+
             const nameValue =
                 nameInput.value.trim();
 
             const emailValue =
                 emailInput.value.trim();
+
 
             if (nameValue === "") {
 
@@ -183,7 +220,9 @@ function initContactForm() {
                 );
 
                 return;
+
             }
+
 
             if (!emailValue.includes("@")) {
 
@@ -195,19 +234,30 @@ function initContactForm() {
                 );
 
                 return;
+
             }
+
 
             console.log(
                 "Application Ready for Server"
             );
 
+
             localStorage.removeItem(
                 "synexus_form_draft"
             );
 
+
             nameInput.value = "";
+
             emailInput.value = "";
+
             messageInput.value = "";
+
+
+            alert(
+                "Message submitted successfully!"
+            );
 
         }
     );
@@ -215,9 +265,9 @@ function initContactForm() {
 }
 
 
-// ===============================
+// ======================================================
 // CONTACT FORM DRAFT
-// ===============================
+// ======================================================
 
 function initFormDraft() {
 
@@ -227,25 +277,40 @@ function initFormDraft() {
     const emailInput =
         document.getElementById("email");
 
+
     if (!nameInput || !emailInput) return;
+
 
     const savedData =
         localStorage.getItem(
             "synexus_form_draft"
         );
 
+
     if (savedData) {
 
-        const formData =
-            JSON.parse(savedData);
+        try {
 
-        nameInput.value =
-            formData.name || "";
+            const formData =
+                JSON.parse(savedData);
 
-        emailInput.value =
-            formData.email || "";
+
+            nameInput.value =
+                formData.name || "";
+
+            emailInput.value =
+                formData.email || "";
+
+        } catch (error) {
+
+            console.log(
+                "Unable to restore form draft."
+            );
+
+        }
 
     }
+
 
     function saveDraft() {
 
@@ -257,6 +322,7 @@ function initFormDraft() {
 
         };
 
+
         localStorage.setItem(
             "synexus_form_draft",
             JSON.stringify(formData)
@@ -264,10 +330,12 @@ function initFormDraft() {
 
     }
 
+
     nameInput.addEventListener(
         "input",
         saveDraft
     );
+
 
     emailInput.addEventListener(
         "input",
@@ -277,9 +345,9 @@ function initFormDraft() {
 }
 
 
-// ===============================
+// ======================================================
 // PROJECT DATA
-// ===============================
+// ======================================================
 
 const projectsData = [
 
@@ -292,6 +360,7 @@ const projectsData = [
         status: "Active"
     },
 
+
     {
         title: "Hackathons",
 
@@ -300,6 +369,7 @@ const projectsData = [
 
         status: "Completed"
     },
+
 
     {
         title: "Open Source Projects",
@@ -313,9 +383,9 @@ const projectsData = [
 ];
 
 
-// ===============================
+// ======================================================
 // PROJECTS
-// ===============================
+// ======================================================
 
 function initProjects() {
 
@@ -324,10 +394,12 @@ function initProjects() {
             "dynamic-grid"
         );
 
+
     const searchInput =
         document.getElementById(
             "search-projects"
         );
+
 
     if (!gridContainer || !searchInput)
         return;
@@ -336,6 +408,7 @@ function initProjects() {
     function renderProjects(dataArray) {
 
         gridContainer.innerHTML = "";
+
 
         dataArray.forEach(
             function (project) {
@@ -370,18 +443,50 @@ function initProjects() {
             }
         );
 
+
         initScrollObserver();
 
     }
 
 
-    const debouncedSearch =
-        debounce(
+    function debounceSearch(
+        func,
+        delay
+    ) {
+
+        let timeout;
+
+
+        return function (...args) {
+
+            clearTimeout(timeout);
+
+
+            timeout = setTimeout(
+                () => {
+
+                    func.apply(
+                        this,
+                        args
+                    );
+
+                },
+                delay
+            );
+
+        };
+
+    }
+
+
+    const searchProjects =
+        debounceSearch(
             function () {
 
                 const searchTerm =
                     searchInput.value
                         .toLowerCase();
+
 
                 const filteredProjects =
                     projectsData.filter(
@@ -396,6 +501,7 @@ function initProjects() {
                         }
                     );
 
+
                 renderProjects(
                     filteredProjects
                 );
@@ -407,38 +513,44 @@ function initProjects() {
 
     searchInput.addEventListener(
         "input",
-        debouncedSearch
+        searchProjects
     );
 
 
-    renderProjects(projectsData);
+    renderProjects(
+        projectsData
+    );
 
 }
 
 
-// ===============================
+// ======================================================
 // MODAL
-// ===============================
+// ======================================================
 
 function initModal() {
 
     const modal =
         document.getElementById("modal");
 
+
     const modalTitle =
         document.getElementById(
             "modal-title"
         );
+
 
     const closeModal =
         document.getElementById(
             "close-modal"
         );
 
+
     const gridContainer =
         document.getElementById(
             "dynamic-grid"
         );
+
 
     if (
         !modal ||
@@ -446,7 +558,9 @@ function initModal() {
         !closeModal ||
         !gridContainer
     ) {
+
         return;
+
     }
 
 
@@ -465,8 +579,10 @@ function initModal() {
                         "data-title"
                     );
 
+
                 modalTitle.textContent =
                     title;
+
 
                 modal.style.display =
                     "flex";
@@ -487,12 +603,27 @@ function initModal() {
         }
     );
 
+
+    window.addEventListener(
+        "click",
+        function (e) {
+
+            if (e.target === modal) {
+
+                modal.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
 }
 
 
-// ===============================
+// ======================================================
 // TESTIMONIALS
-// ===============================
+// ======================================================
 
 function initTestimonials() {
 
@@ -501,10 +632,12 @@ function initTestimonials() {
             "member-name"
         );
 
+
     const memberQuote =
         document.getElementById(
             "member-quote"
         );
+
 
     if (!memberName || !memberQuote)
         return;
@@ -519,12 +652,14 @@ function initTestimonials() {
                 "Synexus helped me improve my web development skills."
         },
 
+
         {
             name: "Priya",
 
             quote:
                 "The community projects gave me real-world experience."
         },
+
 
         {
             name: "Ananya",
@@ -546,14 +681,17 @@ function initTestimonials() {
                 currentIndex
             ];
 
+
         memberName.textContent =
             currentData.name;
+
 
         memberQuote.textContent =
             currentData.quote;
 
 
         currentIndex++;
+
 
         if (
             currentIndex ===
@@ -569,6 +707,7 @@ function initTestimonials() {
 
     updateTestimonial();
 
+
     setInterval(
         updateTestimonial,
         3000
@@ -577,9 +716,9 @@ function initTestimonials() {
 }
 
 
-// ===============================
+// ======================================================
 // TASK TRACKER
-// ===============================
+// ======================================================
 
 function initTaskTracker() {
 
@@ -588,22 +727,27 @@ function initTaskTracker() {
             "task-input"
         );
 
+
     const addTaskBtn =
         document.getElementById(
             "add-task-btn"
         );
+
 
     const taskList =
         document.getElementById(
             "task-list"
         );
 
+
     if (
         !taskInput ||
         !addTaskBtn ||
         !taskList
     ) {
+
         return;
+
     }
 
 
@@ -613,6 +757,7 @@ function initTaskTracker() {
     function renderTasks() {
 
         taskList.innerHTML = "";
+
 
         taskState.forEach(
             function (task) {
@@ -648,6 +793,7 @@ function initTaskTracker() {
             const value =
                 taskInput.value.trim();
 
+
             if (value === "") {
                 return;
             }
@@ -665,6 +811,7 @@ function initTaskTracker() {
 
 
             taskInput.value = "";
+
 
             renderTasks();
 
@@ -713,9 +860,9 @@ function initTaskTracker() {
 }
 
 
-// ===============================
+// ======================================================
 // SCROLL OBSERVER
-// ===============================
+// ======================================================
 
 function initScrollObserver() {
 
@@ -723,6 +870,7 @@ function initScrollObserver() {
         document.querySelectorAll(
             ".hidden"
         );
+
 
     if (!hiddenElements.length)
         return;
@@ -754,7 +902,9 @@ function initScrollObserver() {
     hiddenElements.forEach(
         function (element) {
 
-            observer.observe(element);
+            observer.observe(
+                element
+            );
 
         }
     );
@@ -762,9 +912,9 @@ function initScrollObserver() {
 }
 
 
-// ===============================
+// ======================================================
 // KANBAN BOARD
-// ===============================
+// ======================================================
 
 function initKanbanBoard() {
 
@@ -773,16 +923,20 @@ function initKanbanBoard() {
             ".task-card"
         );
 
+
     const columns =
         document.querySelectorAll(
             ".column"
         );
 
+
     if (
         !taskCards.length ||
         !columns.length
     ) {
+
         return;
+
     }
 
 
@@ -825,10 +979,12 @@ function initKanbanBoard() {
 
                     e.preventDefault();
 
+
                     const draggingCard =
                         document.querySelector(
                             ".is-dragging"
                         );
+
 
                     if (draggingCard) {
 
@@ -847,16 +1003,24 @@ function initKanbanBoard() {
 }
 
 
-// ===============================
-// GITHUB PROFILE - DAY 26
-// ===============================
+// ======================================================
+// GITHUB - DAY 26 + DAY 27 + DAY 28
+// ======================================================
 
-async function getDeveloperProfile(username) {
+
+// -------------------------------
+// FETCH GITHUB PROFILE
+// -------------------------------
+
+async function getDeveloperProfile(
+    username
+) {
 
     const profileCard =
         document.getElementById(
             "dev-profile-card"
         );
+
 
     if (!profileCard) return;
 
@@ -867,6 +1031,17 @@ async function getDeveloperProfile(username) {
     if (username === "") {
 
         profileCard.innerHTML = "";
+
+        const reposGrid =
+            document.getElementById(
+                "repos-grid"
+            );
+
+        if (reposGrid) {
+
+            reposGrid.innerHTML = "";
+
+        }
 
         return;
 
@@ -886,23 +1061,26 @@ async function getDeveloperProfile(username) {
 
 
         // DAY 28:
-        // Rate limit check
+        // Rate limit handling
+
+        if (
+            response.status === 403 ||
+            response.status === 429
+        ) {
+
+            throw new Error(
+                "API Rate Limit exceeded. Please wait a moment."
+            );
+
+        }
+
+
+        // User not found
 
         if (!response.ok) {
 
-            if (
-                response.status === 403 ||
-                response.status === 429
-            ) {
-
-                throw new Error(
-                    "API Rate Limit exceeded. Please wait a moment."
-                );
-
-            }
-
             throw new Error(
-                "User not found"
+                "GitHub user not found."
             );
 
         }
@@ -925,14 +1103,14 @@ async function getDeveloperProfile(username) {
                 </h3>
 
                 <p>
-                    ${data.bio ||
-                    "No bio available."}
+                    ${data.bio || "No bio available."}
                 </p>
 
                 <p>
                     <strong>
                         Username:
                     </strong>
+
                     ${data.login}
                 </p>
 
@@ -940,6 +1118,7 @@ async function getDeveloperProfile(username) {
                     <strong>
                         Public Repositories:
                     </strong>
+
                     ${data.public_repos}
                 </p>
 
@@ -971,21 +1150,37 @@ async function getDeveloperProfile(username) {
 
         `;
 
+
+        const reposGrid =
+            document.getElementById(
+                "repos-grid"
+            );
+
+
+        if (reposGrid) {
+
+            reposGrid.innerHTML = "";
+
+        }
+
     }
 
 }
 
 
-// ===============================
-// GITHUB REPOSITORIES - DAY 27
-// ===============================
+// -------------------------------
+// FETCH REPOSITORIES
+// -------------------------------
 
-async function fetchRepositories(username) {
+async function fetchRepositories(
+    username
+) {
 
     const reposGrid =
         document.getElementById(
             "repos-grid"
         );
+
 
     if (!reposGrid) return;
 
@@ -1015,7 +1210,8 @@ async function fetchRepositories(username) {
             await response.json();
 
 
-        // Clear old results
+        // DAY 27:
+        // Clear canvas before rendering
 
         reposGrid.innerHTML = "";
 
@@ -1082,9 +1278,9 @@ async function fetchRepositories(username) {
 }
 
 
-// ===============================
-// GITHUB LOOKUP - DAY 28
-// ===============================
+// ======================================================
+// GITHUB INPUT - DAY 28
+// ======================================================
 
 function initGithubLookup() {
 
@@ -1093,11 +1289,13 @@ function initGithubLookup() {
             "github-username"
         );
 
+
     if (!usernameInput) return;
 
 
-    // Search automatically while typing.
-    // Debounced by 500 milliseconds.
+    // Day 28:
+    // Search automatically while typing
+    // after 500 milliseconds.
 
     const searchUser =
         debounce(
@@ -1105,6 +1303,7 @@ function initGithubLookup() {
 
                 const username =
                     usernameInput.value.trim();
+
 
                 getDeveloperProfile(
                     username
@@ -1123,387 +1322,27 @@ function initGithubLookup() {
 }
 
 
-// ===============================
-// ROUTER
-// ===============================
+// ======================================================
+// START APPLICATION
+// ======================================================
 
-const appRoot =
-    document.getElementById(
-        "app-root"
-    );
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
+        initThemeToggle();
 
-// GitHub Pages project path
-
-const BASE_PATH =
-    "/50-days-web-dev-challenge-";
-
-
-const routes = {
-
-    // ===========================
-    // HOME
-    // ===========================
-
-    "/": `
-
-        <section>
-
-            <h1 id="hero-title">
-                Empowering the Next Generation
-                of Engineers
-            </h1>
-
-            <p>
-                Welcome to Synexus, a student-driven
-                engineering community focused on
-                learning, collaboration, innovation,
-                and practical experience.
-            </p>
-
-            <p>
-                We bring together students who are
-                passionate about technology and provide
-                opportunities to explore new ideas,
-                strengthen technical skills, and work
-                on meaningful projects.
-            </p>
-
-            <h2>
-                Why Join Synexus?
-            </h2>
-
-            <p>
-                Be part of a supportive community where
-                you can learn from others, share your
-                ideas, participate in technical
-                activities, and turn your ideas into
-                real projects.
-            </p>
-
-            <a
-                href="${BASE_PATH}/about"
-                class="nav-link"
-                id="hero-btn">
-                Learn More About Us
-            </a>
-
-        </section>
-
-    `,
-
-
-    // ===========================
-    // ABOUT
-    // ===========================
-
-    "/about": `
-
-        <section>
-
-            <h2>
-                About Synexus
-            </h2>
-
-            <p>
-                Synexus is a student community created
-                to encourage young engineers to learn,
-                collaborate, and explore technology.
-            </p>
-
-            <p>
-                We organize technical workshops,
-                coding sessions, project collaborations,
-                hackathons, and other learning
-                activities that help students improve
-                their technical and problem-solving
-                skills.
-            </p>
-
-            <h2>
-                Our Mission
-            </h2>
-
-            <p>
-                Our mission is to empower students with
-                knowledge, opportunities, and community
-                support so they can become confident
-                engineers and lifelong learners.
-            </p>
-
-            <h2>
-                What We Believe
-            </h2>
-
-            <p>
-                We believe that every student has the
-                ability to learn and innovate. By
-                working together and sharing ideas,
-                we can create better solutions and
-                help each other grow.
-            </p>
-
-        </section>
-
-    `,
-
-
-    // ===========================
-    // INITIATIVES
-    // ===========================
-
-    "/initiatives": `
-
-        <section>
-
-            <h2>
-                Our Initiatives
-            </h2>
-
-            <p>
-                Synexus organizes technical initiatives
-                designed to help students learn,
-                experiment, collaborate, and gain
-                practical experience.
-            </p>
-
-            <p>
-                From hands-on workshops and coding
-                events to hackathons and open-source
-                projects, our initiatives encourage
-                creativity, teamwork, problem-solving,
-                and continuous learning.
-            </p>
-
-            <h2>
-                Explore Our Initiatives
-            </h2>
-
-            <input
-                type="text"
-                id="search-projects"
-                placeholder="Search initiatives..."
-            >
-
-            <div
-                class="initiatives-grid"
-                id="dynamic-grid">
-            </div>
-
-        </section>
-
-    `,
-
-
-    // ===========================
-    // TEAM
-    // ===========================
-
-    "/team": `
-
-        <section>
-
-            <h2>
-                Core Team
-            </h2>
-
-            <p>
-                Meet the dedicated students who help
-                organize and support the Synexus
-                community.
-            </p>
-
-            <p>
-                Our core team works together to plan
-                events, coordinate projects, encourage
-                participation, and create opportunities
-                for members to learn and grow.
-            </p>
-
-            <div class="team-grid">
-
-                <div class="profile-card">
-
-                    <h3>
-                        Anant Sharma
-                    </h3>
-
-                    <p>
-                        Founder
-                    </p>
-
-                    <p>
-                        Passionate about building a
-                        collaborative environment where
-                        students can learn technology
-                        and work together on innovative
-                        ideas.
-                    </p>
-
-                </div>
-
-            </div>
-
-            <h2>
-                Our Team's Goal
-            </h2>
-
-            <p>
-                We aim to build a community where
-                students feel comfortable asking
-                questions, sharing ideas, taking part
-                in projects, and developing skills
-                that will help them in their future
-                careers.
-            </p>
-
-        </section>
-
-    `,
-
-
-    // ===========================
-    // GITHUB LOOKUP
-    // ===========================
-
-    "/github": `
-
-        <section id="github-lookup">
-
-            <h2>
-                GitHub Developer Lookup
-            </h2>
-
-            <p>
-                Search for a GitHub developer and
-                explore their public profile and
-                recently updated repositories.
-            </p>
-
-            <div class="github-search-box">
-
-                <input
-                    type="text"
-                    id="github-username"
-                    placeholder="Enter GitHub username"
-                    autocomplete="off"
-                >
-
-            </div>
-
-            <div id="dev-profile-card"></div>
-
-            <h2>
-                Recent Repositories
-            </h2>
-
-            <div
-                id="repos-grid"
-                class="initiatives-grid">
-            </div>
-
-        </section>
-
-    `
-
-};
-
-
-// ===============================
-// ROUTER FUNCTION
-// ===============================
-
-async function router() {
-
-    let path =
-        window.location.pathname;
-
-
-    // Remove GitHub repository name
-
-    if (
-        path.startsWith(BASE_PATH)
-    ) {
-
-        path =
-            path.substring(
-                BASE_PATH.length
-            );
-
-    }
-
-
-    if (path === "") {
-
-        path = "/";
-
-    }
-
-
-    const view =
-        routes[path] ||
-
-        `
-
-            <section class="not-found">
-
-                <h2>
-                    404 - Page Not Found
-                </h2>
-
-                <p>
-                    Sorry, the page you are
-                    looking for does not exist.
-                </p>
-
-                <a
-                    href="${BASE_PATH}/"
-                    class="nav-link">
-                    Go Home
-                </a>
-
-            </section>
-
-        `;
-
-
-    appRoot.innerHTML = view;
-
-
-    // ===========================
-    // PAGE-SPECIFIC INITIALIZERS
-    // ===========================
-
-    if (path === "/") {
+        initMobileMenu();
 
         initHeroButton();
 
-        initScrollObserver();
+        initContactForm();
 
-    }
-
-
-    if (path === "/about") {
-
-        initScrollObserver();
-
-    }
-
-
-    if (path === "/initiatives") {
+        initFormDraft();
 
         initProjects();
 
         initModal();
-
-        initScrollObserver();
-
-    }
-
-
-    if (path === "/team") {
-
-        initKanbanBoard();
 
         initTestimonials();
 
@@ -1511,87 +1350,9 @@ async function router() {
 
         initScrollObserver();
 
-    }
-
-
-    if (path === "/github") {
+        initKanbanBoard();
 
         initGithubLookup();
 
     }
-
-}
-
-
-// ===============================
-// NAVIGATION EVENT DELEGATION
-// ===============================
-
-document.addEventListener(
-    "click",
-    function (event) {
-
-        const link =
-            event.target.closest(
-                "a.nav-link"
-            );
-
-
-        if (!link) {
-            return;
-        }
-
-
-        event.preventDefault();
-
-
-        const href =
-            link.getAttribute("href");
-
-
-        window.history.pushState(
-            {},
-            "",
-            href
-        );
-
-
-        router();
-
-    }
-);
-
-
-// ===============================
-// BROWSER BACK / FORWARD
-// ===============================
-
-window.addEventListener(
-    "popstate",
-    router
-);
-
-
-// ===============================
-// INITIALIZATION
-// ===============================
-
-function initApp() {
-
-    initThemeToggle();
-
-    initMobileMenu();
-
-    router();
-
-}
-
-
-// ===============================
-// START APP
-// ===============================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    initApp
 );
