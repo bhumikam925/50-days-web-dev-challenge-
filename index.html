@@ -6,230 +6,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Synexus</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Day 25 Master JavaScript -->
     <script src="app.js" defer></script>
 </head>
 
 <body>
-<a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Skip Link -->
+    <a href="#app-root" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- =========================
+         HEADER / NAVIGATION
+    ========================== -->
 
     <header>
         <nav>
+
             <h2>Synexus</h2>
-            <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
 
-<ul class="nav-links">
+            <button
+                class="menu-toggle"
+                aria-label="Toggle Menu">
+                ☰
+            </button>
 
-    <li>
-        <a href="/50-days-web-dev-challenge/" class="nav-link">
-            Home
-        </a>
-    </li>
+            <ul class="nav-links">
 
-    <li>
-        <a href="/50-days-web-dev-challenge-/about" class="nav-link">
-            About
-        </a>
-    </li>
+                <li>
+                    <a
+                        href="/50-days-web-dev-challenge-/"
+                        class="nav-link">
+                        Home
+                    </a>
+                </li>
 
-    <li>
-        <a href="/50-days-web-dev-challenge-/initiatives" class="nav-link">
-            Initiatives
-        </a>
-    </li>
+                <li>
+                    <a
+                        href="/50-days-web-dev-challenge-/about"
+                        class="nav-link">
+                        About
+                    </a>
+                </li>
 
-    <li>
-        <a href="/50-days-web-dev-challenge-/team" class="nav-link">
-            Core Team
-        </a>
-    </li>
-    <li>
-    <a href="/50-days-web-dev-challenge-/github" class="nav-link">
-        GitHub Lookup
-    </a>
-</li>
+                <li>
+                    <a
+                        href="/50-days-web-dev-challenge-/initiatives"
+                        class="nav-link">
+                        Initiatives
+                    </a>
+                </li>
 
-</ul>
-            <button id="theme-toggle">🌙</button>
+                <li>
+                    <a
+                        href="/50-days-web-dev-challenge-/team"
+                        class="nav-link">
+                        Core Team
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="/50-days-web-dev-challenge-/github"
+                        class="nav-link">
+                        GitHub Lookup
+                    </a>
+                </li>
+
+            </ul>
+
+            <button id="theme-toggle">
+                🌙
+            </button>
+
         </nav>
     </header>
 
+
+    <!-- =========================
+         SPA CONTENT
+         app.js injects pages here
+    ========================== -->
+
     <main id="app-root"></main>
-        <section id="github-lookup">
-    <h2>GitHub Developer Lookup</h2>
 
-    <input
-        type="text"
-        id="github-username"
-        placeholder="Enter GitHub username"
-    >
 
-    <button id="search-dev-btn">
-        Lookup
-    </button>
-
-    <div id="dev-profile-card"></div>
-</section>
-
-        <section>
-            <h1 id="hero-title">Empowering the Next Generation of Engineers</h1>
-
-            <p>
-                Join our community to learn, collaborate, and build innovative
-                projects with students who share the same passion for technology.
-                We believe in creating an environment where every student can
-                explore new ideas, improve technical skills, and gain practical
-                experience through teamwork, workshops, coding events, and
-                real-world projects. Together, we inspire each other to become
-                confident engineers and lifelong learners.
-            </p>
-
-            <a href="#" id="hero-btn">Join Our Community</a>
-        </section>
-
-       <section class="hidden">
-            <h2>About Us</h2>
-
-            <p>
-                Our community is dedicated to empowering students by providing
-                opportunities to learn, innovate, and grow together. We organize
-                technical workshops, coding sessions, project collaborations,
-                and knowledge-sharing events that help students strengthen both
-                their technical and problem-solving skills. Our mission is to
-                create a supportive environment where beginners and experienced
-                learners can work together, exchange ideas, and prepare
-                themselves for future careers in engineering and technology.
-            </p>
-        </section>
-
-        <section>
-    <h2>Our Initiatives</h2>
-    <input
-    type="text"
-    id="search-projects"
-    placeholder="Search initiatives..."
->
-
-    <div class="initiatives-grid" id="dynamic-grid">
-
-    </div>
-</section>
-    <h2>Core Team</h2>
-
-    <div class="team-grid">
-
-        <div class="profile-card hidden">
-            <img src="https://via.placeholder.com/150" alt="Founder Profile">
-
-            <h3>Anant Sharma</h3>
-
-            <p>Founder</p>
-
-            <a href="#">View Profile</a>
-        </div>
-
-    </div>
-</section>
-    </main>
-    <section id="testimonials" class="hidden"></section>
-    <h2>Community Testimonials</h2>
-
-    <div id="testimonial-container">
-
-        <h3 id="member-name"></h3>
-
-        <p id="member-quote"></p>
-
-    </div>
-
-</section>
-<section>
-    <h2>Task Board</h2>
-
-    <div class="board">
-
-        <div class="column">
-            <h3>To Do</h3>
-
-            <div class="task-card" draggable="true">
-                Learn HTML
-            </div>
-
-            <div class="task-card" draggable="true">
-                Practice CSS
-            </div>
-
-            <div class="task-card" draggable="true">
-                Complete JavaScript
-            </div>
-
-        </div>
-
-        <div class="column">
-            <h3>In Progress</h3>
-        </div>
-
-        <div class="column">
-            <h3>Done</h3>
-        </div>
-
-    </div>
-</section>
-<section id="task-tracker">
-
-    <h2>Task Tracker</h2>
-
-    <input
-        type="text"
-        id="task-input"
-        placeholder="Enter a task">
-
-    <button id="add-task-btn">
-        Add Task
-    </button>
-
-    <ul id="task-list"></ul>
-
-</section>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
     <footer>
 
-        <p>&copy; 2026 Synexus. All Rights Reserved.</p>
+        <p>
+            &copy; 2026 Synexus. All Rights Reserved.
+        </p>
 
-        <a href="https://www.linkedin.com/company/synexus-core/">LinkedIn</a> |
-        <a href="https://www.instagram.com/synexuscore?igsh=MW14Ymx3emx3bTRyaA==">Instagram</a> |
-        
+        <a
+            href="https://www.linkedin.com/company/synexus-core/"
+            target="_blank"
+            rel="noopener noreferrer">
+            LinkedIn
+        </a>
+
+        |
+
+        <a
+            href="https://www.instagram.com/synexuscore/"
+            target="_blank"
+            rel="noopener noreferrer">
+            Instagram
+        </a>
 
     </footer>
-   <section id="contact" class="hidden">
-    <h2>Contact Us</h2>
 
-    <form id="contact-form">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Enter your name" required>
 
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+    <!-- =========================
+         MODAL
+         Used by Initiatives
+    ========================== -->
 
-        <label for="message">Message</label>
-        <textarea id="message" rows="5" placeholder="Write your message" required></textarea>
+    <div
+        id="modal"
+        class="modal">
 
-        <button type="submit">Send Message</button>
-    </form>
-</section>
-</body>
+        <div class="modal-content">
 
-</html>
-<div id="modal" class="modal">
+            <span id="close-modal">
+                &times;
+            </span>
 
-    <div class="modal-content">
+            <h2 id="modal-title"></h2>
 
-        <span id="close-modal">&times;</span>
+            <p>
+                This initiative is part of the Synexus community.
+            </p>
 
-        <h2 id="modal-title"></h2>
-
-        <p>This initiative is part of the Synexus community.</p>
+        </div>
 
     </div>
 
-</div>
+</body>
+
+</html>
