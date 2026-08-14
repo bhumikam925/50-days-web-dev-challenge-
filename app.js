@@ -940,6 +940,78 @@ async function getDeveloperProfile(username) {
             </div>
 
         `;
+fetchRepositories(username);
+    }
+
+}
+async function fetchRepositories(username) {
+
+    const reposGrid =
+        document.getElementById("repos-grid");
+
+    if (!reposGrid) return;
+
+    try {
+
+        const response =
+            await fetch(
+                `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
+            );
+
+        if (!response.ok) {
+            throw new Error("Unable to fetch repositories");
+        }
+
+        const data =
+            await response.json();
+
+        reposGrid.innerHTML = "";
+
+        if (data.length === 0) {
+
+            reposGrid.innerHTML =
+                "<p>No public repositories found.</p>";
+
+            return;
+        }
+
+        data.forEach(function (repo) {
+
+            reposGrid.innerHTML += `
+
+                <div class="initiative-card">
+
+                    <h3>
+                        ${repo.name}
+                    </h3>
+
+                    <p>
+                        ${repo.description ||
+                        "No description provided."}
+                    </p>
+
+                    <a
+                        href="${repo.html_url}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        View Repository
+                    </a>
+
+                </div>
+
+            `;
+
+        });
+
+    } catch (error) {
+
+        reposGrid.innerHTML = `
+
+            <p>
+                Unable to load repositories.
+            </p>
+
+        `;
 
     }
 
@@ -1363,6 +1435,10 @@ const routes = {
             </div>
 
             <div id="dev-profile-card"></div>
+            <div
+    id="repos-grid"
+    class="initiatives-grid">
+</div>
 
         </section>
 
@@ -1545,6 +1621,10 @@ const routes = {
             </div>
 
             <div id="dev-profile-card"></div>
+            <div
+    id="repos-grid"
+    class="initiatives-grid">
+</div>
 
         </section>
 
