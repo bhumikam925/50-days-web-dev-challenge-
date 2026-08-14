@@ -868,7 +868,6 @@ const routes = {
         </section>
           `,
 
-    `
    "/github": `
     <section id="github-lookup">
 
