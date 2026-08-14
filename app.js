@@ -1,19 +1,30 @@
-// ===============================
+// ======================================================
 // SYNEXUS APP.JS - DAY 25
-// ===============================
+// ======================================================
 
 
-// ===============================
-// GLOBAL FEATURES
-// ===============================
+// ======================================================
+// BASE PATH
+// ======================================================
+
+const BASE_PATH = "/50-days-web-dev-challenge-";
+
+const appRoot = document.getElementById("app-root");
+
+
+// ======================================================
+// GLOBAL FEATURE — DARK MODE
+// ======================================================
 
 function initThemeToggle() {
 
-    const themeButton = document.getElementById("theme-toggle");
+    const themeButton =
+        document.getElementById("theme-toggle");
 
     if (!themeButton) return;
 
-    const savedTheme = localStorage.getItem("synexus_theme");
+    const savedTheme =
+        localStorage.getItem("synexus_theme");
 
     if (savedTheme === "dark") {
         document.body.classList.add("dark-theme");
@@ -23,10 +34,22 @@ function initThemeToggle() {
 
         document.body.classList.toggle("dark-theme");
 
-        if (document.body.classList.contains("dark-theme")) {
-            localStorage.setItem("synexus_theme", "dark");
+        if (
+            document.body.classList.contains("dark-theme")
+        ) {
+
+            localStorage.setItem(
+                "synexus_theme",
+                "dark"
+            );
+
         } else {
-            localStorage.setItem("synexus_theme", "light");
+
+            localStorage.setItem(
+                "synexus_theme",
+                "light"
+            );
+
         }
 
     });
@@ -34,14 +57,17 @@ function initThemeToggle() {
 }
 
 
-// ===============================
-// MOBILE MENU
-// ===============================
+// ======================================================
+// GLOBAL FEATURE — MOBILE MENU
+// ======================================================
 
 function initMobileMenu() {
 
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
+    const menuToggle =
+        document.querySelector(".menu-toggle");
+
+    const navLinks =
+        document.querySelector(".nav-links");
 
     if (!menuToggle || !navLinks) return;
 
@@ -54,131 +80,79 @@ function initMobileMenu() {
 }
 
 
-// ===============================
+// ======================================================
 // HERO BUTTON
-// ===============================
+// ======================================================
 
 function initHeroButton() {
 
-    const heroTitle = document.querySelector("#hero-title");
-    const heroButton = document.querySelector("#hero-btn");
+    const heroButton =
+        document.getElementById("hero-btn");
 
-    if (!heroTitle || !heroButton) return;
+    if (!heroButton) return;
 
     heroButton.addEventListener("click", function (event) {
 
         event.preventDefault();
 
-        heroTitle.textContent =
-            "Welcome to the Synexus Core!";
+        const href =
+            heroButton.getAttribute("href");
 
-        heroTitle.classList.toggle("active-state");
-
-    });
-
-}
-
-
-// ===============================
-// CONTACT FORM
-// ===============================
-
-function initContactForm() {
-
-    const contactForm = document.querySelector("#contact-form");
-
-    if (!contactForm) return;
-
-    contactForm.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const nameInput = document.getElementById("name");
-        const emailInput = document.getElementById("email");
-        const messageInput = document.getElementById("message");
-
-        const nameValue = nameInput.value.trim();
-        const emailValue = emailInput.value.trim();
-
-        if (nameValue === "") {
-
-            nameInput.style.borderColor = "red";
-
-            alert("Please enter your name.");
-
-            return;
-        }
-
-        if (!emailValue.includes("@")) {
-
-            emailInput.style.borderColor = "red";
-
-            alert("Please enter a valid email.");
-
-            return;
-        }
-
-        console.log("Application Ready for Server");
-
-        localStorage.removeItem("synexus_form_draft");
-
-        nameInput.value = "";
-        emailInput.value = "";
-        messageInput.value = "";
-
-    });
-
-}
-
-
-// ===============================
-// CONTACT FORM DRAFT
-// ===============================
-
-function initFormDraft() {
-
-    const nameInput = document.getElementById("name");
-    const emailInput = document.getElementById("email");
-
-    if (!nameInput || !emailInput) return;
-
-    const savedData =
-        localStorage.getItem("synexus_form_draft");
-
-    if (savedData) {
-
-        const formData = JSON.parse(savedData);
-
-        nameInput.value = formData.name || "";
-        emailInput.value = formData.email || "";
-
-    }
-
-    function saveDraft() {
-
-        const formData = {
-
-            name: nameInput.value,
-            email: emailInput.value
-
-        };
-
-        localStorage.setItem(
-            "synexus_form_draft",
-            JSON.stringify(formData)
+        window.history.pushState(
+            {},
+            "",
+            href
         );
 
-    }
+        router();
 
-    nameInput.addEventListener("input", saveDraft);
-    emailInput.addEventListener("input", saveDraft);
+    });
 
 }
 
 
-// ===============================
+// ======================================================
+// SCROLL OBSERVER
+// ======================================================
+
+function initScrollObserver() {
+
+    const hiddenElements =
+        document.querySelectorAll(".hidden");
+
+    if (!hiddenElements.length) return;
+
+    const observer =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+                    }
+
+                });
+
+            }
+        );
+
+    hiddenElements.forEach(function (element) {
+
+        observer.observe(element);
+
+    });
+
+}
+
+
+// ======================================================
 // PROJECT DATA
-// ===============================
+// ======================================================
 
 const projectsData = [
 
@@ -206,9 +180,9 @@ const projectsData = [
 ];
 
 
-// ===============================
-// PROJECTS
-// ===============================
+// ======================================================
+// INITIATIVES
+// ======================================================
 
 function initProjects() {
 
@@ -231,9 +205,13 @@ function initProjects() {
 
                 <div class="initiative-card hidden">
 
-                    <h3>${project.title}</h3>
+                    <h3>
+                        ${project.title}
+                    </h3>
 
-                    <p>${project.description}</p>
+                    <p>
+                        ${project.description}
+                    </p>
 
                     <p>
                         <strong>Status:</strong>
@@ -265,34 +243,44 @@ function initProjects() {
 
             clearTimeout(timeout);
 
-            timeout = setTimeout(() => {
+            timeout = setTimeout(
+                function () {
 
-                func.apply(this, args);
+                    func.apply(this, args);
 
-            }, delay);
+                },
+                delay
+            );
 
         };
 
     }
 
 
-    const debouncedSearch = debounce(function () {
+    const debouncedSearch =
+        debounce(function () {
 
-        const searchTerm =
-            searchInput.value.toLowerCase();
-
-        const filteredProjects =
-            projectsData.filter(function (project) {
-
-                return project.title
+            const searchTerm =
+                searchInput.value
                     .toLowerCase()
-                    .includes(searchTerm);
+                    .trim();
 
-            });
+            const filteredProjects =
+                projectsData.filter(
+                    function (project) {
 
-        renderProjects(filteredProjects);
+                        return (
+                            project.title
+                                .toLowerCase()
+                                .includes(searchTerm)
+                        );
 
-    }, 300);
+                    }
+                );
+
+            renderProjects(filteredProjects);
+
+        }, 300);
 
 
     searchInput.addEventListener(
@@ -306,17 +294,21 @@ function initProjects() {
 }
 
 
-// ===============================
+// ======================================================
 // MODAL
-// ===============================
+// ======================================================
 
 function initModal() {
 
-    const modal = document.getElementById("modal");
+    const modal =
+        document.getElementById("modal");
+
     const modalTitle =
         document.getElementById("modal-title");
+
     const closeModal =
         document.getElementById("close-modal");
+
     const gridContainer =
         document.getElementById("dynamic-grid");
 
@@ -330,34 +322,60 @@ function initModal() {
     }
 
 
-    gridContainer.addEventListener("click", function (e) {
+    gridContainer.addEventListener(
+        "click",
+        function (event) {
 
-        if (e.target.classList.contains("view-btn")) {
+            if (
+                event.target.classList
+                    .contains("view-btn")
+            ) {
 
-            const title =
-                e.target.getAttribute("data-title");
+                const title =
+                    event.target.getAttribute(
+                        "data-title"
+                    );
 
-            modalTitle.textContent = title;
+                modalTitle.textContent =
+                    title;
 
-            modal.style.display = "flex";
+                modal.style.display = "flex";
+
+            }
 
         }
+    );
 
-    });
+
+    closeModal.addEventListener(
+        "click",
+        function () {
+
+            modal.style.display = "none";
+
+        }
+    );
 
 
-    closeModal.addEventListener("click", function () {
+    window.addEventListener(
+        "click",
+        function (event) {
 
-        modal.style.display = "none";
+            if (event.target === modal) {
 
-    });
+                modal.style.display = "none";
+
+            }
+
+        }
+    );
 
 }
 
 
-// ===============================
+// ======================================================
 // TESTIMONIALS
-// ===============================
+// ======================================================
 
 function initTestimonials() {
 
@@ -407,11 +425,10 @@ function initTestimonials() {
         memberQuote.textContent =
             currentData.quote;
 
-
         currentIndex++;
 
         if (
-            currentIndex ===
+            currentIndex >=
             testimonialsData.length
         ) {
 
@@ -424,14 +441,17 @@ function initTestimonials() {
 
     updateTestimonial();
 
-    setInterval(updateTestimonial, 3000);
+    setInterval(
+        updateTestimonial,
+        3000
+    );
 
 }
 
 
-// ===============================
+// ======================================================
 // TASK TRACKER
-// ===============================
+// ======================================================
 
 function initTaskTracker() {
 
@@ -460,27 +480,29 @@ function initTaskTracker() {
 
         taskList.innerHTML = "";
 
-        taskState.forEach(function (task) {
+        taskState.forEach(
+            function (task) {
 
-            taskList.innerHTML += `
+                taskList.innerHTML += `
 
-                <li>
+                    <li>
 
-                    <span>
-                        ${task.text}
-                    </span>
+                        <span>
+                            ${task.text}
+                        </span>
 
-                    <button
-                        class="delete-btn"
-                        data-id="${task.id}">
-                        ×
-                    </button>
+                        <button
+                            class="delete-btn"
+                            data-id="${task.id}">
+                            ×
+                        </button>
 
-                </li>
+                    </li>
 
-            `;
+                `;
 
-        });
+            }
+        );
 
     }
 
@@ -492,9 +514,7 @@ function initTaskTracker() {
             const value =
                 taskInput.value.trim();
 
-            if (value === "") {
-                return;
-            }
+            if (value === "") return;
 
 
             taskState.push({
@@ -518,16 +538,16 @@ function initTaskTracker() {
 
     taskList.addEventListener(
         "click",
-        function (e) {
+        function (event) {
 
             if (
-                e.target.classList
+                event.target.classList
                     .contains("delete-btn")
             ) {
 
                 const targetId =
                     Number(
-                        e.target.getAttribute(
+                        event.target.getAttribute(
                             "data-id"
                         )
                     );
@@ -556,138 +576,453 @@ function initTaskTracker() {
 }
 
 
-// ===============================
-// SCROLL OBSERVER
-// ===============================
-
-function initScrollObserver() {
-
-    const hiddenElements =
-        document.querySelectorAll(".hidden");
-
-    if (!hiddenElements.length) return;
-
-
-    const observer =
-        new IntersectionObserver(
-            function (entries) {
-
-                entries.forEach(function (entry) {
-
-                    if (entry.isIntersecting) {
-
-                        entry.target.classList
-                            .add("show");
-
-                    }
-
-                });
-
-            }
-        );
-
-
-    hiddenElements.forEach(function (element) {
-
-        observer.observe(element);
-
-    });
-
-}
-
-
-// ===============================
+// ======================================================
 // KANBAN BOARD
-// ===============================
+// ======================================================
 
 function initKanbanBoard() {
 
     const taskCards =
-        document.querySelectorAll(".task-card");
+        document.querySelectorAll(
+            ".task-card"
+        );
 
     const columns =
-        document.querySelectorAll(".column");
+        document.querySelectorAll(
+            ".column"
+        );
 
-    if (!taskCards.length || !columns.length) {
+    if (
+        !taskCards.length ||
+        !columns.length
+    ) {
         return;
     }
 
 
-    taskCards.forEach(function (card) {
+    taskCards.forEach(
+        function (card) {
 
-        card.addEventListener(
-            "dragstart",
-            function () {
+            card.addEventListener(
+                "dragstart",
+                function () {
 
-                card.classList.add(
-                    "is-dragging"
-                );
-
-            }
-        );
-
-
-        card.addEventListener(
-            "dragend",
-            function () {
-
-                card.classList.remove(
-                    "is-dragging"
-                );
-
-            }
-        );
-
-    });
-
-
-    columns.forEach(function (column) {
-
-        column.addEventListener(
-            "dragover",
-            function (e) {
-
-                e.preventDefault();
-
-                const draggingCard =
-                    document.querySelector(
-                        ".is-dragging"
-                    );
-
-                if (draggingCard) {
-
-                    column.appendChild(
-                        draggingCard
+                    card.classList.add(
+                        "is-dragging"
                     );
 
                 }
+            );
 
-            }
-        );
 
-    });
+            card.addEventListener(
+                "dragend",
+                function () {
+
+                    card.classList.remove(
+                        "is-dragging"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    columns.forEach(
+        function (column) {
+
+            column.addEventListener(
+                "dragover",
+                function (event) {
+
+                    event.preventDefault();
+
+                    const draggingCard =
+                        document.querySelector(
+                            ".is-dragging"
+                        );
+
+                    if (draggingCard) {
+
+                        column.appendChild(
+                            draggingCard
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
 
 }
 
 
-// ===============================
-// ROUTER
-// ===============================
+// ======================================================
+// CONTACT FORM
+// ======================================================
 
-const appRoot =
-    document.getElementById("app-root");
+function initContactForm() {
+
+    const contactForm =
+        document.getElementById(
+            "contact-form"
+        );
+
+    if (!contactForm) return;
 
 
-// Your GitHub Pages project path
-const BASE_PATH =
-    "/50-days-web-dev-challenge-";
+    contactForm.addEventListener(
+        "submit",
+        function (event) {
 
+            event.preventDefault();
+
+
+            const nameInput =
+                document.getElementById("name");
+
+            const emailInput =
+                document.getElementById("email");
+
+            const messageInput =
+                document.getElementById("message");
+
+
+            if (
+                !nameInput ||
+                !emailInput ||
+                !messageInput
+            ) {
+                return;
+            }
+
+
+            const nameValue =
+                nameInput.value.trim();
+
+            const emailValue =
+                emailInput.value.trim();
+
+
+            nameInput.style.borderColor = "";
+            emailInput.style.borderColor = "";
+
+
+            if (nameValue === "") {
+
+                nameInput.style.borderColor =
+                    "red";
+
+                alert(
+                    "Please enter your name."
+                );
+
+                return;
+
+            }
+
+
+            if (!emailValue.includes("@")) {
+
+                emailInput.style.borderColor =
+                    "red";
+
+                alert(
+                    "Please enter a valid email."
+                );
+
+                return;
+
+            }
+
+
+            console.log(
+                "Application Ready for Server"
+            );
+
+
+            localStorage.removeItem(
+                "synexus_form_draft"
+            );
+
+
+            nameInput.value = "";
+            emailInput.value = "";
+            messageInput.value = "";
+
+
+            alert(
+                "Thank you! Your message is ready to be sent."
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// CONTACT FORM DRAFT
+// ======================================================
+
+function initFormDraft() {
+
+    const nameInput =
+        document.getElementById("name");
+
+    const emailInput =
+        document.getElementById("email");
+
+    if (!nameInput || !emailInput) return;
+
+
+    const savedData =
+        localStorage.getItem(
+            "synexus_form_draft"
+        );
+
+
+    if (savedData) {
+
+        try {
+
+            const formData =
+                JSON.parse(savedData);
+
+            nameInput.value =
+                formData.name || "";
+
+            emailInput.value =
+                formData.email || "";
+
+        } catch (error) {
+
+            localStorage.removeItem(
+                "synexus_form_draft"
+            );
+
+        }
+
+    }
+
+
+    function saveDraft() {
+
+        const formData = {
+
+            name: nameInput.value,
+
+            email: emailInput.value
+
+        };
+
+
+        localStorage.setItem(
+            "synexus_form_draft",
+            JSON.stringify(formData)
+        );
+
+    }
+
+
+    nameInput.addEventListener(
+        "input",
+        saveDraft
+    );
+
+    emailInput.addEventListener(
+        "input",
+        saveDraft
+    );
+
+}
+
+
+// ======================================================
+// GITHUB DEVELOPER LOOKUP
+// ======================================================
+
+async function getDeveloperProfile(username) {
+
+    const profileCard =
+        document.getElementById(
+            "dev-profile-card"
+        );
+
+    if (!profileCard) return;
+
+
+    profileCard.innerHTML =
+        "<p>Fetching GitHub profile...</p>";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `https://api.github.com/users/${username}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "GitHub user not found"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        profileCard.innerHTML = `
+
+            <div class="github-profile">
+
+                <img
+                    src="${data.avatar_url}"
+                    alt="GitHub profile picture">
+
+                <h3>
+                    ${data.name || username}
+                </h3>
+
+                <p>
+                    ${data.bio || "No bio available."}
+                </p>
+
+                <p>
+                    <strong>
+                        Username:
+                    </strong>
+                    ${data.login}
+                </p>
+
+                <p>
+                    <strong>
+                        Public Repositories:
+                    </strong>
+                    ${data.public_repos}
+                </p>
+
+                <a
+                    href="${data.html_url}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    View GitHub Profile
+                </a>
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        profileCard.innerHTML = `
+
+            <div class="github-error">
+
+                <p>
+                    ❌ Unable to find this GitHub user.
+                </p>
+
+                <p>
+                    Please check the username and try again.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+function initGithubLookup() {
+
+    const usernameInput =
+        document.getElementById(
+            "github-username"
+        );
+
+    const searchButton =
+        document.getElementById(
+            "search-dev-btn"
+        );
+
+
+    if (
+        !usernameInput ||
+        !searchButton
+    ) {
+        return;
+    }
+
+
+    searchButton.addEventListener(
+        "click",
+        function () {
+
+            const username =
+                usernameInput.value.trim();
+
+
+            if (username === "") {
+
+                alert(
+                    "Please enter a GitHub username."
+                );
+
+                return;
+
+            }
+
+
+            getDeveloperProfile(
+                username
+            );
+
+        }
+    );
+
+
+    usernameInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Enter") {
+
+                searchButton.click();
+
+            }
+
+        }
+    );
+
+}
+
+
+// ======================================================
+// ROUTES
+// ======================================================
 
 const routes = {
 
+    // ==================================================
+    // HOME
+    // ==================================================
+
     "/": `
 
-        <section>
+        <section class="hero">
 
             <h1 id="hero-title">
                 Empowering the Next Generation
@@ -695,64 +1030,375 @@ const routes = {
             </h1>
 
             <p>
-                Welcome to Synexus, a student-driven
-                engineering community focused on
-                learning, collaboration, innovation,
-                and practical experience.
+                Join our community to learn,
+                collaborate, and build innovative
+                projects with students who share
+                the same passion for technology.
             </p>
 
             <p>
-                We bring together students who are
-                passionate about technology and provide
-                opportunities to explore new ideas,
-                strengthen technical skills, and work
-                on meaningful projects.
-            </p>
-
-            <h2>Why Join Synexus?</h2>
-
-            <p>
-                Be part of a supportive community where
-                you can learn from others, share your
-                ideas, participate in technical
-                activities, and turn your ideas into
-                real projects.
+                We create an environment where
+                students can explore ideas,
+                improve technical skills, and gain
+                practical experience through
+                teamwork, workshops, coding events,
+                and real-world projects.
             </p>
 
             <a
                 href="${BASE_PATH}/about"
-                class="nav-link"
-                id="hero-btn">
-                Learn More About Us
+                id="hero-btn"
+                class="nav-link">
+                Join Our Community
             </a>
+
+        </section>
+
+
+        <section class="hidden">
+
+            <h2>
+                About Synexus
+            </h2>
+
+            <p>
+                Synexus is a student-driven engineering
+                community focused on learning,
+                collaboration, innovation, and
+                practical experience.
+            </p>
+
+            <p>
+                We bring students together to learn
+                new technologies, exchange ideas,
+                participate in projects, and develop
+                skills that prepare them for the
+                future.
+            </p>
+
+        </section>
+
+
+        <section class="hidden">
+
+            <h2>
+                Our Initiatives
+            </h2>
+
+            <p>
+                From technical workshops and coding
+                sessions to hackathons and open-source
+                projects, our initiatives encourage
+                students to learn by doing.
+            </p>
+
+            <div class="initiatives-grid">
+
+                <div class="initiative-card">
+
+                    <h3>
+                        Technical Workshops
+                    </h3>
+
+                    <p>
+                        Hands-on sessions designed to
+                        improve programming and
+                        development skills.
+                    </p>
+
+                </div>
+
+
+                <div class="initiative-card">
+
+                    <h3>
+                        Hackathons
+                    </h3>
+
+                    <p>
+                        Collaborative events where
+                        students turn ideas into
+                        innovative solutions.
+                    </p>
+
+                </div>
+
+
+                <div class="initiative-card">
+
+                    <h3>
+                        Open Source
+                    </h3>
+
+                    <p>
+                        Opportunities to contribute
+                        to projects and build practical
+                        experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="hidden">
+
+            <h2>
+                Core Team
+            </h2>
+
+            <p>
+                Meet the students who help organize
+                activities, coordinate projects,
+                and support the Synexus community.
+            </p>
+
+            <div class="team-grid">
+
+                <div class="profile-card">
+
+                    <h3>
+                        Anant Sharma
+                    </h3>
+
+                    <p>
+                        Founder
+                    </p>
+
+                    <p>
+                        Passionate about building a
+                        collaborative environment where
+                        students can learn technology
+                        and work together.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="testimonials"
+            class="hidden">
+
+            <h2>
+                Community Testimonials
+            </h2>
+
+            <div id="testimonial-container">
+
+                <h3 id="member-name"></h3>
+
+                <p id="member-quote"></p>
+
+            </div>
+
+        </section>
+
+
+        <section class="hidden">
+
+            <h2>
+                Task Board
+            </h2>
+
+            <div class="board">
+
+                <div class="column">
+
+                    <h3>
+                        To Do
+                    </h3>
+
+                    <div
+                        class="task-card"
+                        draggable="true">
+                        Learn HTML
+                    </div>
+
+                    <div
+                        class="task-card"
+                        draggable="true">
+                        Practice CSS
+                    </div>
+
+                    <div
+                        class="task-card"
+                        draggable="true">
+                        Complete JavaScript
+                    </div>
+
+                </div>
+
+
+                <div class="column">
+
+                    <h3>
+                        In Progress
+                    </h3>
+
+                </div>
+
+
+                <div class="column">
+
+                    <h3>
+                        Done
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            id="task-tracker"
+            class="hidden">
+
+            <h2>
+                Task Tracker
+            </h2>
+
+            <input
+                type="text"
+                id="task-input"
+                placeholder="Enter a task">
+
+            <button id="add-task-btn">
+                Add Task
+            </button>
+
+            <ul id="task-list"></ul>
+
+        </section>
+
+
+        <section
+            id="contact"
+            class="hidden">
+
+            <h2>
+                Contact Us
+            </h2>
+
+            <p>
+                Have an idea, question, or want to
+                connect with Synexus? Send us a message.
+            </p>
+
+            <form id="contact-form">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required>
+
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required>
+
+
+                <label for="message">
+                    Message
+                </label>
+
+                <textarea
+                    id="message"
+                    rows="5"
+                    placeholder="Write your message"
+                    required></textarea>
+
+
+                <button type="submit">
+                    Send Message
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <section
+            id="github-home"
+            class="hidden">
+
+            <h2>
+                GitHub Developer Lookup
+            </h2>
+
+            <p>
+                Search for a GitHub developer and
+                explore their public profile.
+            </p>
+
+            <div class="github-search-box">
+
+                <input
+                    type="text"
+                    id="github-username"
+                    placeholder="Enter GitHub username">
+
+                <button id="search-dev-btn">
+                    🔍 Lookup Developer
+                </button>
+
+            </div>
+
+            <div id="dev-profile-card"></div>
 
         </section>
 
     `,
 
 
+    // ==================================================
+    // ABOUT
+    // ==================================================
+
     "/about": `
 
         <section>
 
-            <h2>About Synexus</h2>
+            <h2>
+                About Synexus
+            </h2>
 
             <p>
-                Synexus is a student community created
-                to encourage young engineers to learn,
-                collaborate, and explore technology.
+                Synexus is a student-driven engineering
+                community created to encourage students
+                to learn, collaborate, innovate, and
+                grow together.
             </p>
 
             <p>
                 We organize technical workshops,
                 coding sessions, project collaborations,
-                hackathons, and other learning
-                activities that help students improve
-                their technical and problem-solving
-                skills.
+                hackathons, and knowledge-sharing
+                activities that help students develop
+                technical and problem-solving skills.
             </p>
 
-            <h2>Our Mission</h2>
+            <h2>
+                Our Mission
+            </h2>
 
             <p>
                 Our mission is to empower students with
@@ -761,14 +1407,15 @@ const routes = {
                 engineers and lifelong learners.
             </p>
 
-            <h2>What We Believe</h2>
+            <h2>
+                What We Believe
+            </h2>
 
             <p>
-                We believe that every student has the
-                ability to learn and innovate. By
-                working together and sharing ideas,
-                we can create better solutions and
-                help each other grow.
+                We believe that every student can learn,
+                create, and innovate. By sharing ideas
+                and working together, we can build a
+                stronger engineering community.
             </p>
 
         </section>
@@ -776,34 +1423,29 @@ const routes = {
     `,
 
 
+    // ==================================================
+    // INITIATIVES
+    // ==================================================
+
     "/initiatives": `
 
         <section>
 
-            <h2>Our Initiatives</h2>
+            <h2>
+                Our Initiatives
+            </h2>
 
             <p>
                 Synexus organizes technical initiatives
-                designed to help students learn,
-                experiment, collaborate, and gain
-                practical experience.
+                that help students experiment,
+                collaborate, and gain practical
+                experience.
             </p>
-
-            <p>
-                From hands-on workshops and coding
-                events to hackathons and open-source
-                projects, our initiatives encourage
-                creativity, teamwork, problem-solving,
-                and continuous learning.
-            </p>
-
-            <h2>Explore Our Initiatives</h2>
 
             <input
                 type="text"
                 id="search-projects"
-                placeholder="Search initiatives..."
-            >
+                placeholder="Search initiatives...">
 
             <div
                 class="initiatives-grid"
@@ -815,11 +1457,17 @@ const routes = {
     `,
 
 
+    // ==================================================
+    // TEAM
+    // ==================================================
+
     "/team": `
 
         <section>
 
-            <h2>Core Team</h2>
+            <h2>
+                Core Team
+            </h2>
 
             <p>
                 Meet the dedicated students who help
@@ -827,82 +1475,87 @@ const routes = {
                 community.
             </p>
 
-            <p>
-                Our core team works together to plan
-                events, coordinate projects, encourage
-                participation, and create opportunities
-                for members to learn and grow.
-            </p>
-
             <div class="team-grid">
 
                 <div class="profile-card">
 
-                    <h3>Anant Sharma</h3>
-
-                    <p>Founder</p>
+                    <h3>
+                        Anant Sharma
+                    </h3>
 
                     <p>
-                        Passionate about building a
+                        Founder
+                    </p>
+
+                    <p>
+                        Passionate about creating a
                         collaborative environment where
-                        students can learn technology
-                        and work together on innovative
-                        ideas.
+                        students can learn and work
+                        together on innovative ideas.
                     </p>
 
                 </div>
 
             </div>
 
-            <h2>Our Team's Goal</h2>
+            <h2>
+                Our Team's Goal
+            </h2>
 
             <p>
-                We aim to build a community where
-                students feel comfortable asking
-                questions, sharing ideas, taking part
-                in projects, and developing skills
-                that will help them in their future
-                careers.
+                We aim to create a supportive community
+                where students can ask questions,
+                share ideas, participate in projects,
+                and develop skills for their future.
             </p>
 
         </section>
-          `,
 
-   "/github": `
-    <section id="github-lookup">
+    `,
 
-        <h2>GitHub Developer Lookup</h2>
 
-        <p>
-            Explore a developer's GitHub profile
-            and discover their work.
-        </p>
+    // ==================================================
+    // GITHUB
+    // ==================================================
 
-        <div class="github-search-box">
+    "/github": `
 
-            <input
-                type="text"
-                id="github-username"
-                placeholder="Enter GitHub username"
-            >
+        <section id="github-lookup">
 
-            <button id="search-dev-btn">
-                🔍 Lookup Developer
-            </button>
+            <h2>
+                GitHub Developer Lookup
+            </h2>
 
-        </div>
+            <p>
+                Search for a GitHub developer and view
+                their public profile information.
+            </p>
 
-        <div id="dev-profile-card"></div>
+            <div class="github-search-box">
 
-    </section>
-`,
+                <input
+                    type="text"
+                    id="github-username"
+                    placeholder="Enter GitHub username">
+
+                <button id="search-dev-btn">
+                    🔍 Lookup Developer
+                </button>
+
+            </div>
+
+            <div id="dev-profile-card"></div>
+
+        </section>
+
+    `
 
 };
 
 
-// ===============================
-// ROUTER FUNCTION
-// ===============================
+// ======================================================
+// ROUTER
+// ======================================================
 
 async function router() {
 
@@ -910,19 +1563,22 @@ async function router() {
         window.location.pathname;
 
 
-    // Remove GitHub repository name
-    // from the pathname
+    // Remove project folder from URL
 
     if (path.startsWith(BASE_PATH)) {
 
         path =
-            path.substring(BASE_PATH.length);
+            path.substring(
+                BASE_PATH.length
+            );
 
     }
 
 
     if (path === "") {
+
         path = "/";
+
     }
 
 
@@ -949,25 +1605,24 @@ async function router() {
             </section>
 
         `;
-   
-
-        getDeveloperProfile(username);
-
-    });
-
-}
 
 
     appRoot.innerHTML = view;
 
 
-    // ===========================
+    // ==============================================
     // PAGE-SPECIFIC INITIALIZERS
-    // ===========================
+    // ==============================================
 
     if (path === "/") {
 
         initHeroButton();
+        initTestimonials();
+        initKanbanBoard();
+        initTaskTracker();
+        initContactForm();
+        initFormDraft();
+        initGithubLookup();
         initScrollObserver();
 
     }
@@ -991,22 +1646,23 @@ async function router() {
 
     if (path === "/team") {
 
-        initKanbanBoard();
-        initTestimonials();
-        initTaskTracker();
         initScrollObserver();
 
     }
+
+
     if (path === "/github") {
-    initGithubLookup();
-}
+
+        initGithubLookup();
+
+    }
 
 }
 
 
-// ===============================
+// ======================================================
 // NAVIGATION EVENT DELEGATION
-// ===============================
+// ======================================================
 
 document.addEventListener(
     "click",
@@ -1018,34 +1674,43 @@ document.addEventListener(
             );
 
 
-        if (!link) {
-            return;
-        }
-
-
-        event.preventDefault();
+        if (!link) return;
 
 
         const href =
             link.getAttribute("href");
 
 
-        window.history.pushState(
-            {},
-            "",
-            href
-        );
+        if (!href) return;
 
 
-        router();
+        // Only handle internal navigation
+
+        if (
+            href.startsWith(BASE_PATH)
+        ) {
+
+            event.preventDefault();
+
+
+            window.history.pushState(
+                {},
+                "",
+                href
+            );
+
+
+            router();
+
+        }
 
     }
 );
 
 
-// ===============================
-// BROWSER BACK / FORWARD
-// ===============================
+// ======================================================
+// BACK / FORWARD BUTTON
+// ======================================================
 
 window.addEventListener(
     "popstate",
@@ -1053,9 +1718,9 @@ window.addEventListener(
 );
 
 
-// ===============================
+// ======================================================
 // INITIALIZATION
-// ===============================
+// ======================================================
 
 function initApp() {
 
@@ -1071,89 +1736,11 @@ function initApp() {
 }
 
 
-// ===============================
-// START APP
-// ===============================
+// ======================================================
+// START APPLICATION
+// ======================================================
 
 document.addEventListener(
     "DOMContentLoaded",
     initApp
 );
-async function getDeveloperProfile(username) {
-
-    const profileCard =
-        document.getElementById("dev-profile-card");
-
-    if (!profileCard) return;
-
-    profileCard.innerHTML = "Fetching data...";
-
-    try {
-
-        const response =
-            await fetch(
-                `https://api.github.com/users/${username}`
-            );
-
-        if (!response.ok) {
-            throw new Error("GitHub user not found");
-        }
-
-        const data =
-            await response.json();
-
-        profileCard.innerHTML = `
-
-            <div class="github-profile">
-
-                <img
-                    src="${data.avatar_url}"
-                    alt="GitHub profile">
-
-                <h3>
-                    ${data.name || username}
-                </h3>
-
-                <p>
-                    ${data.bio || "No bio available."}
-                </p>
-
-            </div>
-
-        `;
-
-    } catch (error) {
-
-        profileCard.innerHTML = `
-            <p>
-                Unable to find this GitHub user.
-            </p>
-        `;
-
-    }
-
-}
-function initGithubLookup() {
-
-    const usernameInput =
-        document.getElementById("github-username");
-
-    const searchButton =
-        document.getElementById("search-dev-btn");
-
-    if (!usernameInput || !searchButton) return;
-
-    searchButton.addEventListener("click", function () {
-
-        const username =
-            usernameInput.value.trim();
-
-        if (username === "") {
-            return;
-        }
-
-        getDeveloperProfile(username);
-
-    });
-
-}
