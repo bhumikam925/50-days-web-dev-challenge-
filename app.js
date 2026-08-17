@@ -1320,11 +1320,120 @@ function initGithubLookup() {
     );
 
 }
+async function submitProposal(newInitiative) {
 
+    const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+            method: "POST",
 
-// ======================================================
-// START APPLICATION
-// ======================================================
+            headers: {
+                "Content-type":
+                    "application/json; charset=UTF-8"
+            },
+
+            body: JSON.stringify(newInitiative)
+        }
+    );
+
+    const data = await response.json();
+
+    if (response.status !== 201) {
+        throw new Error("Failed to submit proposal.");
+    }
+
+    return data;
+}
+function initProposalForm() {
+
+    const proposalForm =
+        document.getElementById("proposal-form");
+
+    const proposalMessage =
+        document.getElementById("proposal-message");
+
+    const submitButton =
+        document.getElementById("proposal-submit-btn");
+
+    if (
+        !proposalForm ||
+        !proposalMessage ||
+        !submitButton
+    ) {
+        return;
+    }
+
+    proposalForm.addEventListener(
+        "submit",
+        async function (e) {
+
+            e.preventDefault();
+
+            const titleInput =
+                document.getElementById(
+                    "proposal-title"
+                ).value.trim();
+
+            const descInput =
+                document.getElementById(
+                    "proposal-description"
+                ).value.trim();
+
+            const newInitiative = {
+
+                title: titleInput,
+
+                body: descInput,
+
+                userId: 1
+
+            };
+
+            submitButton.disabled = true;
+
+            submitButton.textContent =
+                "Submitting...";
+
+            proposalMessage.textContent =
+                "Sending proposal...";
+
+            try {
+
+                const data =
+                    await submitProposal(
+                        newInitiative
+                    );
+
+                proposalMessage.textContent =
+                    "✅ Initiative submitted successfully!";
+
+                proposalForm.reset();
+
+                console.log(
+                    "Created proposal:",
+                    data
+                );
+
+            } catch (error) {
+
+                proposalMessage.textContent =
+                    "❌ Failed to submit proposal. Please try again.";
+
+                console.error(error);
+
+            } finally {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    "Submit Proposal";
+
+            }
+
+        }
+    );
+
+}
 
 document.addEventListener(
     "DOMContentLoaded",
@@ -1353,6 +1462,8 @@ document.addEventListener(
         initKanbanBoard();
 
         initGithubLookup();
+
+        initProposalForm();
 
     }
 );
