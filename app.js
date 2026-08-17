@@ -67,15 +67,31 @@ data.forEach(function (post) {
 
     dataFeed.innerHTML += `
 
-        <article class="feed-card">
+        <article class="synexus-feed-item">
 
-            <h3>
-                ${post.title}
-            </h3>
+            <div class="feed-marker">
+                ${post.id}
+            </div>
 
-            <p>
-                ${post.body}
-            </p>
+            <div class="feed-content">
+
+                <span class="feed-label">
+                    COMMUNITY UPDATE
+                </span>
+
+                <h3>
+                    ${post.title}
+                </h3>
+
+                <p>
+                    ${post.body}
+                </p>
+
+                <small>
+                    Synexus Community
+                </small>
+
+            </div>
 
         </article>
 
