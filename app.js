@@ -1335,6 +1335,68 @@ async function submitProposal(newInitiative) {
             body: JSON.stringify(newInitiative)
         }
     );
+    async function updateInitiative(id) {
+
+    try {
+
+        const response = await fetch(
+            "https://jsonplaceholder.typicode.com/posts/" + id,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-type":
+                        "application/json; charset=UTF-8"
+                },
+
+                body: JSON.stringify({
+                    id: id,
+                    title: "My Initiative [UPDATED]",
+                    body: "This initiative has been updated.",
+                    userId: 1
+                })
+            }
+        );
+        async function deleteInitiative(id) {
+
+    try {
+
+        const response = await fetch(
+            "https://jsonplaceholder.typicode.com/posts/" + id,
+            {
+                method: "DELETE"
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("Deleted initiative:", data);
+
+    } catch (error) {
+
+        console.error(
+            "Failed to delete initiative:",
+            error
+        );
+
+    }
+
+}
+
+        const data = await response.json();
+
+        console.log("Updated initiative:", data);
+
+    } catch (error) {
+
+        console.error(
+            "Failed to update initiative:",
+            error
+        );
+
+    }
+
+}
 
     const data = await response.json();
 
@@ -1467,3 +1529,43 @@ document.addEventListener(
 
     }
 );
+const updateButton =
+    document.getElementById("update-btn");
+
+const deleteButton =
+    document.getElementById("delete-btn");
+
+if (updateButton) {
+
+    updateButton.addEventListener(
+        "click",
+        function () {
+
+            updateInitiative(1);
+
+        }
+    );
+
+}
+
+if (deleteButton) {
+
+    deleteButton.addEventListener(
+        "click",
+        function () {
+
+            const confirmed =
+                window.confirm(
+                    "Are you sure you want to delete this initiative? This action cannot be undone."
+                );
+
+            if (confirmed) {
+
+                deleteInitiative(1);
+
+            }
+
+        }
+    );
+
+}
