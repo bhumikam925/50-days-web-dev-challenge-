@@ -3,6 +3,131 @@
 // DAY 28
 // ======================================================
 
+// ===============================
+// SYNEXUS APP.JS - DAY 31
+// ===============================
+
+let currentPage = 1;
+
+const limit = 10;
+
+let isLoading = false;
+
+
+// ===============================
+// GLOBAL FEATURES
+// ===============================
+async function fetchNextPage() {
+
+    if (isLoading) {
+        return;
+    }
+
+    isLoading = true;
+
+    const dataFeed =
+        document.getElementById("data-feed");
+
+    const sentinel =
+        document.getElementById("scroll-sentinel");
+
+    if (!dataFeed || !sentinel) {
+        isLoading = false;
+        return;
+    }
+
+    try {
+
+        sentinel.textContent = "Loading more...";
+
+        const response =
+            await fetch(
+                `https://jsonplaceholder.typicode.com/posts?_page=${currentPage}&_limit=${limit}`
+            );
+
+       const data =
+    await response.json();
+
+if (data.length === 0) {
+
+    const observerMessage =
+        document.getElementById("scroll-sentinel");
+
+    observerMessage.textContent =
+        "You've reached the end!";
+
+    if (window.infiniteScrollObserver) {
+        window.infiniteScrollObserver.disconnect();
+    }
+
+    return;
+}
+
+data.forEach(function (post) {
+
+    dataFeed.innerHTML += `
+
+        <article class="feed-card">
+
+            <h3>
+                ${post.title}
+            </h3>
+
+            <p>
+                ${post.body}
+            </p>
+
+        </article>
+
+    `;
+
+});
+    } catch (error) {
+
+        console.error(
+            "Failed to load posts:",
+            error
+        );
+
+    } finally {
+
+        isLoading = false;
+
+    }
+
+}
+function initInfiniteScroll() {
+
+    const sentinel =
+        document.getElementById("scroll-sentinel");
+
+    if (!sentinel) {
+        return;
+    }
+
+   window.infiniteScrollObserver =
+        new IntersectionObserver(
+            function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    if (entry.isIntersecting) {
+
+                        currentPage++;
+
+                        fetchNextPage();
+
+                    }
+
+                });
+
+            }
+        );
+
+    observer.observe(sentinel);
+
+}
+
 
 // ======================================================
 // DEBOUNCE - DAY 28
@@ -1526,6 +1651,10 @@ document.addEventListener(
         initGithubLookup();
 
         initProposalForm();
+
+        fetchNextPage();
+
+initInfiniteScroll();
 
     }
 );
