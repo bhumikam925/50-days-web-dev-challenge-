@@ -2,6 +2,7 @@
 // SYNEXUS API.JS
 // DAY 32 - API MODULE
 // ======================================================
+import { fetchWithRetry } from "./utils.js";
 const userCache = new Map();
 
 // ======================================================
@@ -19,10 +20,9 @@ export async function getDeveloperProfile(username) {
 
     try {
 
-        const response = await fetch(
-            `https://api.github.com/users/${username}`
-        );
-
+       const response = await fetchWithRetry(
+    `https://api.github.com/users/${username}`
+);
         if (response.status === 404) {
 
             throw new Error(
@@ -72,7 +72,7 @@ export async function fetchRepositories(username) {
 
     try {
 
-        const response = await fetch(
+        const response = await fetchWithRetry(
             `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
         );
 
@@ -114,7 +114,7 @@ export async function fetchRepositories(username) {
 
 export async function submitProposal(newInitiative) {
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
         "https://jsonplaceholder.typicode.com/posts",
         {
             method: "POST",
@@ -144,7 +144,7 @@ export async function submitProposal(newInitiative) {
 
 export async function updateInitiative(id) {
 
-    const response = await fetch(
+ const response = await fetchWithRetry(
         "https://jsonplaceholder.typicode.com/posts/" + id,
         {
             method: "PUT",
@@ -179,7 +179,7 @@ export async function updateInitiative(id) {
 
 export async function deleteInitiative(id) {
 
-    const response = await fetch(
+    const response = await fetchWithRetry(
         "https://jsonplaceholder.typicode.com/posts/" + id,
         {
             method: "DELETE"
