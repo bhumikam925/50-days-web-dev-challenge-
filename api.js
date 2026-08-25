@@ -2,13 +2,20 @@
 // SYNEXUS API.JS
 // DAY 32 - API MODULE
 // ======================================================
-
+const userCache = new Map();
 
 // ======================================================
 // GITHUB DEVELOPER PROFILE
 // ======================================================
 
 export async function getDeveloperProfile(username) {
+    if (userCache.has(username)) {
+
+    console.log("Serving from cache!");
+
+    return userCache.get(username);
+
+}
 
     try {
 
@@ -44,6 +51,7 @@ export async function getDeveloperProfile(username) {
         }
 
         const data = await response.json();
+        userCache.set(username, data);
 
         return data;
 
