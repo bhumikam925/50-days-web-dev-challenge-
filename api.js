@@ -1,27 +1,83 @@
-export async function fetchRepositories(
-    username
-) {
-
-    const reposGrid =
-        document.getElementById(
-            "repos-grid"
-        );
+// ======================================================
+// SYNEXUS API.JS
+// DAY 32 - API MODULE
+// ======================================================
 
 
-    if (!reposGrid) return;
+// ======================================================
+// GITHUB DEVELOPER PROFILE
+// ======================================================
 
-
-    reposGrid.innerHTML =
-        "<p>Loading repositories...</p>";
-
+export async function getDeveloperProfile(username) {
 
     try {
 
-        const response =
-            await fetch(
-                `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
+        const response = await fetch(
+            `https://api.github.com/users/${username}`
+        );
+
+        if (response.status === 404) {
+
+            throw new Error(
+                "Developer not found."
             );
 
+        }
+
+        if (
+            response.status === 403 ||
+            response.status === 429
+        ) {
+
+            throw new Error(
+                "API Rate Limit exceeded. Please wait a moment."
+            );
+
+        }
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to fetch developer profile."
+            );
+
+        }
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        throw error;
+
+    }
+
+}
+
+
+// ======================================================
+// GITHUB REPOSITORIES
+// ======================================================
+
+export async function fetchRepositories(username) {
+
+    try {
+
+        const response = await fetch(
+            `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
+        );
+
+        if (
+            response.status === 403 ||
+            response.status === 429
+        ) {
+
+            throw new Error(
+                "API Rate Limit exceeded. Please wait a moment."
+            );
+
+        }
 
         if (!response.ok) {
 
@@ -31,3 +87,97 @@ export async function fetchRepositories(
 
         }
 
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        throw error;
+
+    }
+
+}
+
+
+// ======================================================
+// SUBMIT PROPOSAL - POST
+// ======================================================
+
+export async function submitProposal(newInitiative) {
+
+    const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+            method: "POST",
+
+            headers: {
+                "Content-type":
+                    "application/json; charset=UTF-8"
+            },
+
+            body: JSON.stringify(newInitiative)
+        }
+    );
+
+    const data = await response.json();
+
+    return {
+        response,
+        data
+    };
+
+}
+
+
+// ======================================================
+// UPDATE PROPOSAL - PUT
+// ======================================================
+
+export async function updateInitiative(id) {
+
+    const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts/" + id,
+        {
+            method: "PUT",
+
+            headers: {
+                "Content-type":
+                    "application/json; charset=UTF-8"
+            },
+
+            body: JSON.stringify({
+                id: id,
+                title: "Synexus Initiative [UPDATED]",
+                body: "This initiative has been updated.",
+                userId: 1
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    return {
+        response,
+        data
+    };
+
+}
+
+
+// ======================================================
+// DELETE PROPOSAL - DELETE
+// ======================================================
+
+export async function deleteInitiative(id) {
+
+    const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts/" + id,
+        {
+            method: "DELETE"
+        }
+    );
+
+    return response;
+
+}
