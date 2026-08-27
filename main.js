@@ -10,7 +10,8 @@ import {
     fetchRepositories,
     submitProposal,
     updateInitiative,
-    deleteInitiative
+    deleteInitiative,
+    secureDeleteResource
 } from "./api.js";
 
 
@@ -1389,6 +1390,41 @@ function initProposalManagement() {
         );
 
     }
+    function initSecureDelete() {
+
+    const secureDeleteButton =
+        document.getElementById("secure-delete-btn");
+
+    if (!secureDeleteButton) {
+        return;
+    }
+
+    secureDeleteButton.addEventListener(
+        "click",
+        async function () {
+
+            try {
+
+                const response =
+                    await secureDeleteResource(1);
+
+                console.log(
+                    "Secure delete successful:",
+                    response
+                );
+
+            } catch (error) {
+
+                console.error(
+                    error.message
+                );
+
+            }
+
+        }
+    );
+
+}
 
 
     if (deleteButton) {
