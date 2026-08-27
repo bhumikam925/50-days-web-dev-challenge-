@@ -189,3 +189,28 @@ export async function deleteInitiative(id) {
     return response;
 
 }
+export async function secureDeleteResource(targetId) {
+    const token =
+        localStorage.getItem("auth_token");
+
+
+if (!token) {
+    throw new Error(
+        "Access Denied: No authentication token found."
+    );
+}
+const response = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${targetId}`,
+    {
+        method: "DELETE",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    }
+);
+    if (response.status === 401) {
+    throw new Error(
+        "Unauthorized: Session expired"
+    );
+}
+}
