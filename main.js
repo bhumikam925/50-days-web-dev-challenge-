@@ -11,7 +11,7 @@ import {
     submitProposal,
     updateInitiative,
     deleteInitiative,
-    secureDeleteResource
+    
 } from "./api.js";
 
 
