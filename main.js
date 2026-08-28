@@ -1425,6 +1425,7 @@ function initProposalManagement() {
     );
 
 }
+initSecureDelete();
 
 
     if (deleteButton) {
