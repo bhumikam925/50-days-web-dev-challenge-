@@ -11,6 +11,7 @@ import {
     submitProposal,
     updateInitiative,
     deleteInitiative,
+     fetchDashboardData
     
 } from "./api.js";
 
