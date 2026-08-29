@@ -1057,10 +1057,18 @@ function initGithubLookup() {
                 usernameInput.value.trim();
                 try {
 
-                    const profile =
-                        await getDeveloperProfile(
-                            username
-                        );
+                   const dashboard =
+    await fetchDashboardData(username);
+
+const profile =
+    dashboard.profile;
+
+const repos =
+    dashboard.repos;
+
+const followers =
+    dashboard.followers;
+ loadRepositories(repos);
 
                     const profileCard =
                         document.getElementById(
@@ -1114,9 +1122,7 @@ function initGithubLookup() {
 
                     }
 
-                    await loadRepositories(
-                        username
-                    );
+                  
                     const url =
     new URL(window.location);
 
@@ -1183,7 +1189,7 @@ window.history.pushState(
 // LOAD GITHUB REPOSITORIES
 // ======================================================
 
-async function loadRepositories(username) {
+function loadRepositories(data) {
 
     const reposGrid =
         document.getElementById(
@@ -1199,11 +1205,7 @@ async function loadRepositories(username) {
 
     try {
 
-        const data =
-            await fetchRepositories(
-                username
-            );
-
+       
         reposGrid.innerHTML = "";
 
         if (data.length === 0) {
