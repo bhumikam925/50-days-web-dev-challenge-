@@ -1047,13 +1047,13 @@ function initGithubLookup() {
         return;
     }
 
-    const searchUser =
-        debounce(
-            async function () {
+   const searchUser =
+    debounce(
+        async function (usernameFromUrl = null) {
 
-                const username =
-                    usernameInput.value.trim();
-
+            const username =
+                usernameFromUrl ||
+                usernameInput.value.trim();
                 try {
 
                     const profile =
@@ -1116,6 +1116,25 @@ function initGithubLookup() {
                     await loadRepositories(
                         username
                     );
+                    const url =
+    new URL(window.location);
+
+if (username) {
+    url.searchParams.set(
+        "user",
+        username
+    );
+} else {
+    url.searchParams.delete(
+        "user"
+    );
+}
+
+window.history.pushState(
+    {},
+    "",
+    url
+);
 
                 } catch (error) {
 
@@ -1151,10 +1170,11 @@ function initGithubLookup() {
 
 
     usernameInput.addEventListener(
-        "input",
-        searchUser
-    );
-
+    "input",
+    function () {
+        searchUser();
+    }
+);
 }
 
 
@@ -1473,6 +1493,35 @@ initSecureDelete();
     }
 
 }
+function initUrlSearchParams() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const username =
+        params.get("user");
+
+    if (username) {
+
+        const usernameInput =
+            document.getElementById(
+                "github-username"
+            );
+
+        if (usernameInput) {
+
+            usernameInput.value =
+                username;
+
+            usernameInput.dispatchEvent(
+                new Event("input")
+            );
+
+        }
+    }
+}
 
 
 // ======================================================
@@ -1515,5 +1564,20 @@ document.addEventListener(
 
         initInfiniteScroll();
 
+        initGithubLookup();
+
+        initUrlSearchParams();
+
     }
 );
+function initURLSearch() {
+    const params = new URLSearchParams(
+        window.location.search
+    );
+
+    const username = params.get("user");
+
+    if (username) {
+        // Call your existing search function here
+    }
+}
