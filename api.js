@@ -214,3 +214,39 @@ const response = await fetch(
     );
 }
 }
+// ======================================================
+// DAY 37 - PARALLEL ASYNC DASHBOARD
+// ======================================================
+
+export async function fetchDashboardData(username) {
+
+    const profilePromise = fetchWithRetry(
+        `https://api.github.com/users/${username}`
+    );
+
+    const reposPromise = fetchWithRetry(
+        `https://api.github.com/users/${username}/repos?sort=updated&per_page=6`
+    );
+
+    const followersPromise = fetchWithRetry(
+        `https://api.github.com/users/${username}/followers`
+    );
+
+    const responses = await Promise.all([
+        profilePromise,
+        reposPromise,
+        followersPromise
+    ]);
+
+    const parsedData = await Promise.all(
+        responses.map(response => response.json())
+    );
+
+    const [profile, repos, followers] = parsedData;
+
+    return {
+        profile,
+        repos,
+        followers
+    };
+}
