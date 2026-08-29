@@ -11,8 +11,9 @@ import {
     submitProposal,
     updateInitiative,
     deleteInitiative,
-     fetchDashboardData
-    
+    secureDeleteResource,
+    fetchDashboardData
+
 } from "./api.js";
 
 
@@ -1048,27 +1049,38 @@ function initGithubLookup() {
         return;
     }
 
-   const searchUser =
-    debounce(
-        async function (usernameFromUrl = null) {
+    const searchUser =
+        debounce(
+            async function (usernameFromUrl = null) {
 
-            const username =
-                usernameFromUrl ||
-                usernameInput.value.trim();
+                const username =
+                    usernameFromUrl ||
+                    usernameInput.value.trim();
+
                 try {
 
-                   const dashboard =
-    await fetchDashboardData(username);
+                    // ==================================================
+                    // DAY 37 - FETCH DASHBOARD DATA IN PARALLEL
+                    // ==================================================
 
-const profile =
-    dashboard.profile;
+                    const dashboard =
+                        await fetchDashboardData(
+                            username
+                        );
 
-const repos =
-    dashboard.repos;
+                    const profile =
+                        dashboard.profile;
 
-const followers =
-    dashboard.followers;
- loadRepositories(repos);
+                    const repos =
+                        dashboard.repos;
+
+                    const followers =
+                        dashboard.followers;
+
+                    loadRepositories(
+                        repos
+                    );
+
 
                     const profileCard =
                         document.getElementById(
@@ -1122,26 +1134,37 @@ const followers =
 
                     }
 
-                  
+
+                    // ==================================================
+                    // DAY 36 - URL SEARCH PARAMETER
+                    // ==================================================
+
                     const url =
-    new URL(window.location);
+                        new URL(
+                            window.location
+                        );
 
-if (username) {
-    url.searchParams.set(
-        "user",
-        username
-    );
-} else {
-    url.searchParams.delete(
-        "user"
-    );
-}
+                    if (username) {
 
-window.history.pushState(
-    {},
-    "",
-    url
-);
+                        url.searchParams.set(
+                            "user",
+                            username
+                        );
+
+                    } else {
+
+                        url.searchParams.delete(
+                            "user"
+                        );
+
+                    }
+
+                    window.history.pushState(
+                        {},
+                        "",
+                        url
+                    );
+
 
                 } catch (error) {
 
@@ -1166,7 +1189,9 @@ window.history.pushState(
                         );
 
                     if (reposGrid) {
+
                         reposGrid.innerHTML = "";
+
                     }
 
                 }
@@ -1177,11 +1202,14 @@ window.history.pushState(
 
 
     usernameInput.addEventListener(
-    "input",
-    function () {
-        searchUser();
-    }
-);
+        "input",
+        function () {
+
+            searchUser();
+
+        }
+    );
+
 }
 
 
@@ -1205,7 +1233,6 @@ function loadRepositories(data) {
 
     try {
 
-       
         reposGrid.innerHTML = "";
 
         if (data.length === 0) {
@@ -1413,42 +1440,49 @@ function initProposalManagement() {
         );
 
     }
+
+
     function initSecureDelete() {
 
-    const secureDeleteButton =
-        document.getElementById("secure-delete-btn");
+        const secureDeleteButton =
+            document.getElementById(
+                "secure-delete-btn"
+            );
 
-    if (!secureDeleteButton) {
-        return;
-    }
+        if (!secureDeleteButton) {
+            return;
+        }
 
-    secureDeleteButton.addEventListener(
-        "click",
-        async function () {
+        secureDeleteButton.addEventListener(
+            "click",
+            async function () {
 
-            try {
+                try {
 
-                const response =
-                    await secureDeleteResource(1);
+                    const response =
+                        await secureDeleteResource(
+                            1
+                        );
 
-                console.log(
-                    "Secure delete successful:",
-                    response
-                );
+                    console.log(
+                        "Secure delete successful:",
+                        response
+                    );
 
-            } catch (error) {
+                } catch (error) {
 
-                console.error(
-                    error.message
-                );
+                    console.error(
+                        error.message
+                    );
+
+                }
 
             }
+        );
 
-        }
-    );
+    }
 
-}
-initSecureDelete();
+    initSecureDelete();
 
 
     if (deleteButton) {
@@ -1496,6 +1530,12 @@ initSecureDelete();
     }
 
 }
+
+
+// ======================================================
+// DAY 36 - URL SEARCH PARAMETERS
+// ======================================================
+
 function initUrlSearchParams() {
 
     const params =
@@ -1523,7 +1563,9 @@ function initUrlSearchParams() {
             );
 
         }
+
     }
+
 }
 
 
@@ -1567,20 +1609,7 @@ document.addEventListener(
 
         initInfiniteScroll();
 
-        initGithubLookup();
-
         initUrlSearchParams();
 
     }
 );
-function initURLSearch() {
-    const params = new URLSearchParams(
-        window.location.search
-    );
-
-    const username = params.get("user");
-
-    if (username) {
-        // Call your existing search function here
-    }
-}
