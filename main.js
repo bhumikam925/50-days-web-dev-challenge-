@@ -15,6 +15,7 @@ import {
     fetchDashboardData
 
 } from "./api.js";
+import { sendLiveMessage } from "./websocket.js";
 
 
 // ======================================================
@@ -1567,6 +1568,41 @@ function initUrlSearchParams() {
     }
 
 }
+// ======================================================
+// WEBSOCKET UI - DAY 38
+// ======================================================
+
+function initWebSocketUI() {
+
+    const wsInput =
+        document.getElementById("ws-input");
+
+    const wsSend =
+        document.getElementById("ws-send");
+
+    if (!wsInput || !wsSend) {
+        return;
+    }
+
+    wsSend.addEventListener(
+        "click",
+        function () {
+
+            const message =
+                wsInput.value.trim();
+
+            if (message === "") {
+                return;
+            }
+
+            sendLiveMessage(message);
+
+            wsInput.value = "";
+
+        }
+    );
+
+}
 
 
 // ======================================================
@@ -1610,6 +1646,8 @@ document.addEventListener(
         initInfiniteScroll();
 
         initUrlSearchParams();
+
+        initWebSocketUI();
 
     }
 );
