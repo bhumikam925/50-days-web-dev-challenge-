@@ -1,37 +1,52 @@
 // ======================================================
-// SYNEXUS WEBSOCKET - DAY 38
+// WEBSOCKET CONNECTION - DAY 38
 // ======================================================
 
-const socket =
-    new WebSocket(
-        "wss://ws.postman-echo.com/raw"
-    );
+const socket = new WebSocket(
+    "wss://ws.postman-echo.com/raw"
+);
+
+
 // ======================================================
-// WEBSOCKET EVENTS
+// CONNECTION OPEN
 // ======================================================
 
 socket.onopen = function () {
 
-    console.log("WebSocket connection established.");
+    console.log(
+        "WebSocket connection established."
+    );
 
 };
 
+
+// ======================================================
+// RECEIVE MESSAGE
+// ======================================================
 
 socket.onmessage = function (event) {
 
     const liveFeed =
         document.getElementById("live-feed");
 
-    if (liveFeed) {
-
-        liveFeed.innerHTML += `
-            <p>${event.data}</p>
-        `;
-
+    if (!liveFeed) {
+        return;
     }
+
+    const message =
+        document.createElement("p");
+
+    message.textContent =
+        event.data;
+
+    liveFeed.appendChild(message);
 
 };
 
+
+// ======================================================
+// ERROR HANDLING
+// ======================================================
 
 socket.onerror = function (error) {
 
@@ -43,19 +58,35 @@ socket.onerror = function (error) {
 };
 
 
+// ======================================================
+// CONNECTION CLOSED
+// ======================================================
+
 socket.onclose = function () {
 
     console.log(
         "WebSocket connection closed."
     );
-  // ======================================================
-// SEND LIVE MESSAGE
+
+};
+
+
+// ======================================================
+// SEND MESSAGE
 // ======================================================
 
 export function sendLiveMessage(text) {
 
-    socket.send(text);
+    if (socket.readyState === WebSocket.OPEN) {
+
+        socket.send(text);
+
+    } else {
+
+        console.log(
+            "WebSocket is not connected."
+        );
+
+    }
 
 }
-
-};
