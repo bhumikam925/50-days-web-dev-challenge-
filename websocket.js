@@ -2,29 +2,14 @@
 // WEBSOCKET CONNECTION - DAY 38
 // ======================================================
 
-const socket = new WebSocket(
-    "wss://ws.postman-echo.com/raw"
-);
+let socket;
 
 
 // ======================================================
-// CONNECTION OPEN
+// LIVE FEED
 // ======================================================
 
-socket.onopen = function () {
-
-    console.log(
-        "WebSocket connection established."
-    );
-
-};
-
-
-// ======================================================
-// RECEIVE MESSAGE
-// ======================================================
-
-socket.onmessage = function (event) {
+function addLiveMessage(message) {
 
     const liveFeed =
         document.getElementById("live-feed");
@@ -33,42 +18,116 @@ socket.onmessage = function (event) {
         return;
     }
 
-    const message =
+    const messageElement =
         document.createElement("p");
 
-    message.textContent =
-        event.data;
+    messageElement.textContent =
+        message;
 
-    liveFeed.appendChild(message);
-
-};
-
-
-// ======================================================
-// ERROR HANDLING
-// ======================================================
-
-socket.onerror = function (error) {
-
-    console.error(
-        "WebSocket error:",
-        error
+    liveFeed.appendChild(
+        messageElement
     );
 
-};
+}
 
 
 // ======================================================
-// CONNECTION CLOSED
+// CREATE WEBSOCKET CONNECTION
 // ======================================================
 
-socket.onclose = function () {
+function connectWebSocket() {
 
-    console.log(
-        "WebSocket connection closed."
+    socket = new WebSocket(
+        "wss://ws.postman-echo.com/raw"
     );
 
-};
+
+    // ==================================================
+    // CONNECTION OPEN
+    // ==================================================
+
+    socket.onopen = function () {
+
+        console.log(
+            "WebSocket connection established."
+        );
+
+        addLiveMessage(
+            "Connected to live server."
+        );
+
+    };
+
+
+    // ==================================================
+    // RECEIVE MESSAGE
+    // ==================================================
+
+    socket.onmessage = function (event) {
+
+        addLiveMessage(
+            event.data
+        );
+
+    };
+
+
+    // ==================================================
+    // ERROR HANDLING
+    // ==================================================
+
+    socket.onerror = function (error) {
+
+        console.error(
+            "WebSocket error:",
+            error
+        );
+
+        addLiveMessage(
+            "WebSocket connection error."
+        );
+
+    };
+
+
+    // ==================================================
+    // CONNECTION CLOSED
+    // ==================================================
+
+    socket.onclose = function () {
+
+        console.log(
+            "WebSocket connection closed."
+        );
+
+        addLiveMessage(
+            "Connection closed. Reconnecting in 3 seconds..."
+        );
+
+
+        // ==============================================
+        // BONUS - AUTO RECONNECT
+        // ==============================================
+
+        setTimeout(
+            function () {
+
+                connectWebSocket();
+
+            },
+            3000
+        );
+
+    };
+
+}
+
+
+// ======================================================
+// START CONNECTION
+// ======================================================
+
+connectWebSocket();
 
 
 // ======================================================
@@ -77,7 +136,10 @@ socket.onclose = function () {
 
 export function sendLiveMessage(text) {
 
-    if (socket.readyState === WebSocket.OPEN) {
+    if (
+        socket &&
+        socket.readyState === WebSocket.OPEN
+    ) {
 
         socket.send(text);
 
