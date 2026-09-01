@@ -1651,3 +1651,36 @@ document.addEventListener(
 
     }
 );
+// ======================================================
+// SERVICE WORKER - DAY 39
+// ======================================================
+
+window.addEventListener(
+    "load",
+    function () {
+
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(function (registration) {
+
+                    console.log(
+                        "Service Worker registered successfully:",
+                        registration.scope
+                    );
+
+                })
+                .catch(function (error) {
+
+                    console.error(
+                        "Service Worker registration failed:",
+                        error
+                    );
+
+                });
+
+        }
+
+    }
+);
