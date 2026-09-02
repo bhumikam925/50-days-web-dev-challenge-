@@ -2,7 +2,10 @@
 // SYNEXUS API.JS
 // DAY 32 - API MODULE
 // ======================================================
+
 import { fetchWithRetry } from "./utils.js";
+import { saveOfflineData } from "./db.js"; // DAY 40
+
 const userCache = new Map();
 
 // ======================================================
@@ -12,17 +15,18 @@ const userCache = new Map();
 export async function getDeveloperProfile(username) {
     if (userCache.has(username)) {
 
-    console.log("Serving from cache!");
+        console.log("Serving from cache!");
 
-    return userCache.get(username);
+        return userCache.get(username);
 
-}
+    }
 
     try {
 
-       const response = await fetchWithRetry(
-    `https://api.github.com/users/${username}`
-);
+        const response = await fetchWithRetry(
+            `https://api.github.com/users/${username}`
+        );
+
         if (response.status === 404) {
 
             throw new Error(
@@ -114,6 +118,23 @@ export async function fetchRepositories(username) {
 
 export async function submitProposal(newInitiative) {
 
+    // ==================================================
+    // DAY 40 - OFFLINE DATA
+    // ==================================================
+
+    if (!navigator.onLine) {
+
+        await saveOfflineData(newInitiative);
+
+        alert(
+            "You are offline. Your data has been saved locally."
+        );
+
+        return;
+
+    }
+
+
     const response = await fetchWithRetry(
         "https://jsonplaceholder.typicode.com/posts",
         {
@@ -144,7 +165,7 @@ export async function submitProposal(newInitiative) {
 
 export async function updateInitiative(id) {
 
- const response = await fetchWithRetry(
+    const response = await fetchWithRetry(
         "https://jsonplaceholder.typicode.com/posts/" + id,
         {
             method: "PUT",
@@ -189,31 +210,43 @@ export async function deleteInitiative(id) {
     return response;
 
 }
+
+
 export async function secureDeleteResource(targetId) {
+
     const token =
         localStorage.getItem("auth_token");
 
 
-if (!token) {
-    throw new Error(
-        "Access Denied: No authentication token found."
-    );
-}
-const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${targetId}`,
-    {
-        method: "DELETE",
-        headers: {
-            "Authorization": "Bearer " + token
-        }
+    if (!token) {
+
+        throw new Error(
+            "Access Denied: No authentication token found."
+        );
+
     }
-);
-    if (response.status === 401) {
-    throw new Error(
-        "Unauthorized: Session expired"
+
+    const response = await fetch(
+        `https://jsonplaceholder.typicode.com/posts/${targetId}`,
+        {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        }
     );
+
+    if (response.status === 401) {
+
+        throw new Error(
+            "Unauthorized: Session expired"
+        );
+
+    }
+
 }
-}
+
+
 // ======================================================
 // DAY 37 - PARALLEL ASYNC DASHBOARD
 // ======================================================
@@ -249,4 +282,5 @@ export async function fetchDashboardData(username) {
         repos,
         followers
     };
+
 }
