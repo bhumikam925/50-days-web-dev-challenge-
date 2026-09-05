@@ -1683,6 +1683,8 @@ document.addEventListener(
 
         initWebSocketUI();
 
+        initWebWorker();
+
     }
 );
 // ======================================================
