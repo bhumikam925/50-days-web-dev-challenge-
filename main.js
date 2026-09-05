@@ -1603,6 +1603,40 @@ function initWebSocketUI() {
     );
 
 }
+// ======================================================
+// DAY 41 - WEB WORKER
+// ======================================================
+
+function initWebWorker() {
+
+    const processBtn =
+        document.getElementById("process-btn");
+
+    if (!processBtn) {
+        return;
+    }
+
+    const myWorker =
+        new Worker("./worker.js");
+
+    processBtn.addEventListener(
+        "click",
+        function () {
+
+            myWorker.postMessage("START");
+
+        }
+    );
+
+    myWorker.onmessage = function (e) {
+
+        console.log(
+            "Result:",
+            e.data
+        );
+
+    };
+}
 
 
 // ======================================================
@@ -1684,37 +1718,3 @@ window.addEventListener(
 
     }
 );
-// ======================================================
-// DAY 41 - WEB WORKER
-// ======================================================
-
-function initWebWorker() {
-
-    const processBtn =
-        document.getElementById("process-btn");
-
-    if (!processBtn) {
-        return;
-    }
-
-    const myWorker =
-        new Worker("./worker.js");
-
-    processBtn.addEventListener(
-        "click",
-        function () {
-
-            myWorker.postMessage("START");
-
-        }
-    );
-
-    myWorker.onmessage = function (e) {
-
-        console.log(
-            "Result:",
-            e.data
-        );
-
-    };
-}
