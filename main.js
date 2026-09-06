@@ -4,7 +4,7 @@
 // ======================================================
 
 import { debounce } from "./utils.js";
-
+import { globalStore } from "./core/store.js";
 import {
     getDeveloperProfile,
     fetchRepositories,
@@ -1684,6 +1684,14 @@ document.addEventListener(
         initWebSocketUI();
 
         initWebWorker();
+
+                globalStore.subscribe((state) => {
+            console.log("Global state updated:", state);
+        });
+
+        globalStore.setState({
+            cartCount: 1
+        });
 
     }
 );
