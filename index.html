@@ -21,6 +21,34 @@
 
 
 <body>
+    <template id="modal-template">
+
+    <style>
+        .modal {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal h2 {
+            margin-top: 0;
+        }
+    </style>
+
+    <div class="modal">
+        <h2>
+            <slot name="title">Default Title</slot>
+        </h2>
+
+        <div>
+            <slot>Default Body</slot>
+        </div>
+    </div>
+
+</template>
 
     <!-- ===============================
          SKIP LINK
