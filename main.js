@@ -1637,6 +1637,28 @@ function initWebWorker() {
 
     };
 }
+function initGlobalStateUI() {
+    const stateDisplay = document.createElement("div");
+
+    stateDisplay.id = "global-state-display";
+    stateDisplay.innerHTML = `
+        <strong>Global State</strong>
+        <span>Cart Count: 0</span>
+    `;
+
+    document.body.appendChild(stateDisplay);
+
+    globalStore.subscribe((state) => {
+        stateDisplay.querySelector("span").textContent =
+            `Cart Count: ${state.cartCount}`;
+
+        console.log("Global state updated:", state);
+    });
+
+    globalStore.setState({
+        cartCount: 1
+    });
+}
 
 
 // ======================================================
@@ -1684,6 +1706,8 @@ document.addEventListener(
         initWebSocketUI();
 
         initWebWorker();
+
+        initGlobalStateUI();
 
                 globalStore.subscribe((state) => {
             console.log("Global state updated:", state);
