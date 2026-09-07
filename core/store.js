@@ -4,9 +4,15 @@ class StateStore {
         this.listeners = [];
     }
 
-    subscribe(listenerFunction) {
-        this.listeners.push(listenerFunction);
-    }
+   subscribe(listenerFunction) {
+    this.listeners.push(listenerFunction);
+
+    return () => {
+        this.listeners = this.listeners.filter(
+            listener => listener !== listenerFunction
+        );
+    };
+}
 
     setState(newState) {
         this.state = { ...this.state, ...newState };
