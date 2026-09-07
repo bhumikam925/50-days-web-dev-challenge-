@@ -1711,14 +1711,6 @@ document.addEventListener(
 
         initGlobalStateUI();
 
-                globalStore.subscribe((state) => {
-            console.log("Global state updated:", state);
-        });
-
-        globalStore.setState({
-            cartCount: 1
-        });
-
     }
 );
 // ======================================================
