@@ -19,6 +19,7 @@ import { sendLiveMessage } from "./websocket.js";
 import "./components/UserCard.js";
 import "./components/CartCounter.js";
 import "./components/ProductButton.js";
+import "./components/CustomModal.js";
 
 // ======================================================
 // INFINITE SCROLL - DAY 31
