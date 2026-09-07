@@ -2,7 +2,7 @@
 // SYNEXUS SERVICE WORKER - DAY 39
 // ======================================================
 
-const CACHE_NAME = "platform-cache-v1";
+const CACHE_NAME = "platform-cache-v2";
 
 const CORE_ASSETS = [
     "./",
