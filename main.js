@@ -53,7 +53,7 @@ async function fetchNextPage() {
 
     try {
 
-        sentinel.textContent = "Loading more...";
+      sentinel.innerHTML = `<span class="loading-spinner"></span> Loading more...`;
 
         const response = await fetch(
             `https://jsonplaceholder.typicode.com/posts?_page=${currentPage}&_limit=${limit}`
