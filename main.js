@@ -1749,3 +1749,13 @@ window.addEventListener(
 
     }
 );
+saveOfflineData({
+    type: "test",
+    message: "Synexus offline cache is working"
+})
+.then(() => {
+    console.log("IndexedDB test data saved");
+})
+.catch(error => {
+    console.error("IndexedDB error:", error);
+});
