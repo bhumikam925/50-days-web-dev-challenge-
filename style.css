@@ -607,7 +607,9 @@ textarea:focus-visible {
     transition:all 0.6s ease-out;
 
 }
-
+.route-hidden {
+    display: none !important;
+}
 .show{
 
     opacity:1;
