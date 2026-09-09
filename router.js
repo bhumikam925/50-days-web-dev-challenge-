@@ -20,7 +20,12 @@ export function router() {
 
     if (!appRoot) return;
 
-    console.log("Current route:", route);
+   appRoot.innerHTML = `
+    <div class="router-view">
+        <h2>${route.charAt(0).toUpperCase() + route.slice(1)}</h2>
+        <p>Current view: ${route}</p>
+    </div>
+`;
 }
 
 export function navigateTo(url) {
@@ -29,3 +34,16 @@ export function navigateTo(url) {
 }
 
 window.addEventListener("popstate", router);
+document.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+
+    if (!link) return;
+
+    const url = link.getAttribute("href");
+
+    if (!url || !url.startsWith("/")) return;
+
+    event.preventDefault();
+
+    navigateTo(url);
+});
