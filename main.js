@@ -16,6 +16,7 @@ import {
 
 } from "./api.js";
 import { sendLiveMessage } from "./websocket.js";
+import { saveOfflineData, getOfflineData } from "./db.js";
 import "./components/UserCard.js";
 import "./components/CartCounter.js";
 import "./components/ProductButton.js";
