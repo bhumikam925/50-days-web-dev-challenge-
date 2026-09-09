@@ -14,15 +14,19 @@
     --primary-color:#4b6cb7;
     --text-color:#333333;
     --bg-color:#f4f7fb;
+    --grid-gap: 30px;
 }
-
+.dark-theme {
+    --text-color: #ffffff;
+    --bg-color: #1e1e1e;
+}
 /* Body Styling */
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: var(--text-color);
     background-color:var(--bg-color);
     line-height: 1.6;
-    padding: 0 40px;
+   padding: 0 clamp(15px, 4vw, 40px);
 }
 
 /* ========================================== */
@@ -226,7 +230,7 @@ footer a:hover {
 .initiatives-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+  gap: var(--grid-gap);
     margin-top: 30px;
 }
 
@@ -277,6 +281,9 @@ footer a:hover {
 /* Mobile View */
 
 @media (max-width: 600px) {
+    :root {
+    --grid-gap: 15px;
+}
 
     .initiatives-grid {
         grid-template-columns: repeat(1, 1fr);
