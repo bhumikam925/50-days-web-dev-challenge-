@@ -34,9 +34,13 @@ if (activeSection) {
 }
 
 export function navigateTo(url) {
-    history.pushState(null, null, url);
+    const base = "/50-days-web-dev-challenge-";
+    const newUrl = url === "/" ? base + "/" : base + url;
+
+    history.pushState(null, null, newUrl);
     router();
 }
+
 
 window.addEventListener("popstate", router);
 document.addEventListener("click", (event) => {
