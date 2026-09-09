@@ -23,21 +23,16 @@ export function router() {
 
     const route = routes[path] || "home";
 
-    const appRoot = document.getElementById("app-root");
-
-    if (!appRoot) return;
-
-    const sections = document.querySelectorAll("#app-root > section");
-
-    sections.forEach(section => {
-        section.classList.add("route-hidden");
-    });
-
     const activeSection = document.getElementById(route);
 
     if (activeSection) {
-        activeSection.classList.remove("route-hidden");
+        activeSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
     }
+
+    console.log("Current route:", route);
 }
 
 export function navigateTo(url) {
