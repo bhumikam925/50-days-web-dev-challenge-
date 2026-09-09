@@ -108,13 +108,24 @@ async function fetchNextPage() {
 
         });
 
-    } catch (error) {
+   } catch (error) {
+    console.error("Online submission failed:", error);
+
+    try {
+        await saveOfflineData(newInitiative);
+
+        proposalMessage.textContent =
+            "📦 Saved offline. It will be available when you are back online.";
+    } catch (dbError) {
+        proposalMessage.textContent =
+            "❌ Failed to save proposal offline.";
 
         console.error(
-            "Failed to load posts:",
-            error
+            "IndexedDB save error:",
+            dbError
         );
-
+    }
+}
     } finally {
 
         isLoading = false;
@@ -1749,13 +1760,10 @@ window.addEventListener(
 
     }
 );
-saveOfflineData({
-    type: "test",
-    message: "Synexus offline cache is working"
-})
-.then(() => {
-    console.log("IndexedDB test data saved");
-})
-.catch(error => {
-    console.error("IndexedDB error:", error);
-});
+getOfflineData()
+    .then(data => {
+        console.log("IndexedDB data loaded:", data);
+    })
+    .catch(error => {
+        console.error("IndexedDB read error:", error);
+    });
