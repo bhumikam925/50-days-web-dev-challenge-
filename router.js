@@ -23,13 +23,13 @@ export function router() {
   const sections = document.querySelectorAll("#app-root > section");
 
 sections.forEach(section => {
-    section.classList.add("hidden");
+    section.classList.add("route-hidden");
 });
 
 const activeSection = document.getElementById(route);
 
 if (activeSection) {
-    activeSection.classList.remove("hidden");
+   activeSection.classList.remove("route-hidden");
 }
 }
 
