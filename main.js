@@ -109,9 +109,8 @@ async function fetchNextPage() {
 
         });
 
-  } catch (error) {
-    console.error(error);
-}
+    } catch (error) {
+        console.error(error);
     } finally {
 
         isLoading = false;
@@ -1518,24 +1517,13 @@ function initProposalManagement() {
                         data
                     );
 
-              } catch (error) {
-    console.error("Online submission failed:", error);
+                } catch (error) {
 
-    try {
-        await saveOfflineData(newInitiative);
+                    console.error(
+                        "Failed to delete initiative:",
+                        error
+                    );
 
-        proposalMessage.textContent =
-            "📦 Saved offline. It will be available when you are back online.";
-    } catch (dbError) {
-        proposalMessage.textContent =
-            "❌ Failed to save proposal offline.";
-
-        console.error(
-            "IndexedDB save error:",
-            dbError
-        );
-    }
-}
                 }
 
             }
