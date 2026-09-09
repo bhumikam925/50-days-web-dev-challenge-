@@ -20,12 +20,17 @@ export function router() {
 
     if (!appRoot) return;
 
-   appRoot.innerHTML = `
-    <div class="router-view">
-        <h2>${route.charAt(0).toUpperCase() + route.slice(1)}</h2>
-        <p>Current view: ${route}</p>
-    </div>
-`;
+  const sections = document.querySelectorAll("#app-root > section");
+
+sections.forEach(section => {
+    section.classList.add("hidden");
+});
+
+const activeSection = document.getElementById(route);
+
+if (activeSection) {
+    activeSection.classList.remove("hidden");
+}
 }
 
 export function navigateTo(url) {
