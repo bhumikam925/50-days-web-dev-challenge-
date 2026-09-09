@@ -109,8 +109,12 @@ async function fetchNextPage() {
 
         });
 
-    } catch (error) {
-        console.error(error);
+   } catch (error) {
+    console.error(error);
+
+    sentinel.textContent =
+        "❌ Unable to load more posts. Please try again.";
+}
     } finally {
 
         isLoading = false;
