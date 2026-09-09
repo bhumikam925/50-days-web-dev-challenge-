@@ -3,21 +3,23 @@
 // DAY 49 - DATA STREAMS & ROUTING
 // ======================================================
 
+const base = "/50-days-web-dev-challenge-";
+
 const routes = {
     "/": "home",
     "/about": "about",
     "/initiatives": "initiatives",
     "/team": "team",
+    "/github": "github",
     "/contact": "contact"
 };
 
 export function router() {
-   const base = "/50-days-web-dev-challenge-";
-const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname;
 
-const path = currentPath.startsWith(base)
-    ? currentPath.slice(base.length) || "/"
-    : currentPath;
+    const path = currentPath.startsWith(base)
+        ? currentPath.slice(base.length) || "/"
+        : currentPath;
 
     const route = routes[path] || "home";
 
@@ -25,29 +27,30 @@ const path = currentPath.startsWith(base)
 
     if (!appRoot) return;
 
-  const sections = document.querySelectorAll("#app-root > section");
+    const sections = document.querySelectorAll("#app-root > section");
 
-sections.forEach(section => {
-    section.classList.add("route-hidden");
-});
+    sections.forEach(section => {
+        section.classList.add("route-hidden");
+    });
 
-const activeSection = document.getElementById(route);
+    const activeSection = document.getElementById(route);
 
-if (activeSection) {
-   activeSection.classList.remove("route-hidden");
-}
+    if (activeSection) {
+        activeSection.classList.remove("route-hidden");
+    }
 }
 
 export function navigateTo(url) {
-    const base = "/50-days-web-dev-challenge-";
-    const newUrl = url === "/" ? base + "/" : base + url;
+    const newUrl = url === "/"
+        ? base + "/"
+        : base + url;
 
     history.pushState(null, null, newUrl);
     router();
 }
 
-
 window.addEventListener("popstate", router);
+
 document.addEventListener("click", (event) => {
     const link = event.target.closest("a");
 
