@@ -12,7 +12,12 @@ const routes = {
 };
 
 export function router() {
-    const path = window.location.pathname;
+   const base = "/50-days-web-dev-challenge-";
+const currentPath = window.location.pathname;
+
+const path = currentPath.startsWith(base)
+    ? currentPath.slice(base.length) || "/"
+    : currentPath;
 
     const route = routes[path] || "home";
 
